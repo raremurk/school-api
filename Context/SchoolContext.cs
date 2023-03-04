@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using School.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace School.Models
 {
@@ -11,7 +11,7 @@ namespace School.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Class> Classes { get; set; }
-        public DbSet<SchoolDay> SchoolDays { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
 
         public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
         {
@@ -20,79 +20,160 @@ namespace School.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AcademicSubject>().HasData(
-                new AcademicSubject[]
-                {
-                new AcademicSubject { Id = 1, Name = "Белорусский язык" },
-                new AcademicSubject { Id = 2, Name = "Белорусская литература" },
-                new AcademicSubject { Id = 3, Name = "Русский язык" },
-                new AcademicSubject { Id = 4, Name = "Русская литература" },
-                new AcademicSubject { Id = 5, Name = "Иностранный язык" },
-                new AcademicSubject { Id = 6, Name = "Математика" },
-                new AcademicSubject { Id = 7, Name = "Информатика" },
-                new AcademicSubject { Id = 8, Name = "Человек и мир" },
-                new AcademicSubject { Id = 9, Name = "Всемирная история" },
-                new AcademicSubject { Id = 10, Name = "История Беларуси" },
-                new AcademicSubject { Id = 11, Name = "Обществоведение" },
-                new AcademicSubject { Id = 12, Name = "География" },
-                new AcademicSubject { Id = 13, Name = "Биология" },
-                new AcademicSubject { Id = 14, Name = "Физика" },
-                new AcademicSubject { Id = 15, Name = "Астрономия" },
-                new AcademicSubject { Id = 16, Name = "Химия" },
-                new AcademicSubject { Id = 17, Name = "Изобразительное искусство" },
-                new AcademicSubject { Id = 18, Name = "Музыка" },
-                new AcademicSubject { Id = 19, Name = "Трудовое обучение" },
-                new AcademicSubject { Id = 20, Name = "Искусство" },
-                new AcademicSubject { Id = 21, Name = "Черчение" },
-                new AcademicSubject { Id = 22, Name = "Физическая культура и здоровье" },
-                new AcademicSubject { Id = 23, Name = "Допризывная и медицинская подготовка" },
-                new AcademicSubject { Id = 24, Name = "Основы безопасности жизнедеятельности" }
+            Random rand = new Random();
+            List<AcademicSubject> academicSubjects = new List<AcademicSubject>();
+            List<Teacher> teachers = new List<Teacher>();
+            List<Student> students = new List<Student>();
+            List<Lesson> lessons = new List<Lesson>();
+            List<Class> classes = new List<Class>();
+            List<AcademicSubject> academicSubjects_filtered = new List<AcademicSubject>();
 
-                });
-            modelBuilder.Entity<Teacher>().HasData(
-                new Teacher[]
-                {
-                new Teacher { Id = 1, FirstName = "Иван", MiddleName = "Иванович", LastName = "Иванов",
-                            Position = "Директор", AcademicSubjectId = 1},
-                new Teacher { Id = 2, FirstName = "Алексей", MiddleName = "Александрович", LastName = "Глыбин",
-                            Position = "Завуч", AcademicSubjectId = 2},
-                new Teacher { Id = 3, FirstName = "Евгений", MiddleName = "Андреевич", LastName = "Корбут",
-                            Position = "Учитель", AcademicSubjectId = 3 }
-                });
-            modelBuilder.Entity<Student>().HasData(
-                new Student[]
-                {
+            academicSubjects.AddRange(new List<AcademicSubject>()
+            {
+                new AcademicSubject { Id = 1, Name = "Белорусский язык", ShortName ="Белорусский язык", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 2, Name = "Белорусская литература", ShortName ="Белорусская лит.", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 3, Name = "Русский язык", ShortName ="Русский язык", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 4, Name = "Русская литература", ShortName ="Русская лит.", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 5, Name = "Математика", ShortName ="Математика", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 6, Name = "Трудовое обучение", ShortName ="Трудовое обучение", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 7, Name = "Физическая культура и здоровье", ShortName ="Физкультура", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 8, Name = "Иностранный язык", ShortName ="Иностранный язык", MinClass = 3, MaxClass = 11 },
+                new AcademicSubject { Id = 9, Name = "Всемирная история", ShortName ="Всемирная история", MinClass = 5, MaxClass = 11 },
+                new AcademicSubject { Id = 10, Name = "Информатика", ShortName ="Информатика", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 11, Name = "История Беларуси", ShortName ="История Беларуси", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 12, Name = "География", ShortName ="География", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 13, Name = "Биология", ShortName ="Биология", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 14, Name = "Физика", ShortName ="Физика", MinClass = 7, MaxClass = 11 },
+                new AcademicSubject { Id = 15, Name = "Химия", ShortName ="Химия", MinClass = 7, MaxClass = 11 },
+                new AcademicSubject { Id = 16, Name = "Обществоведение", ShortName ="Обществоведение", MinClass = 9, MaxClass = 11 },
+                new AcademicSubject { Id = 17, Name = "Черчение", ShortName ="Черчение", MinClass = 10, MaxClass = 10 },
+                new AcademicSubject { Id = 18, Name = "Допризывная и медицинская подготовка", ShortName ="ДиМП", MinClass = 10, MaxClass = 11 },
+                new AcademicSubject { Id = 19, Name = "Астрономия", ShortName ="Астрономия", MinClass = 11, MaxClass = 11 },
+                new AcademicSubject { Id = 20, Name = "Искусство", ShortName ="Искусство", MinClass = 5, MaxClass = 9 },
+                new AcademicSubject { Id = 21, Name = "Человек и мир", ShortName ="Человек и мир", MinClass = 1, MaxClass = 5 },
+                new AcademicSubject { Id = 22, Name = "Основы безопасности жизнедеятельности", ShortName ="ОБЖ", MinClass = 2, MaxClass = 5 },
+                new AcademicSubject { Id = 23, Name = "Изобразительное искусство", ShortName ="Изобр. искусство", MinClass = 1, MaxClass = 4 },
+                new AcademicSubject { Id = 24, Name = "Музыка", ShortName ="Музыка", MinClass = 1, MaxClass = 4 },
+                new AcademicSubject { Id = 25, Name = "Форточка", ShortName ="---", MinClass = 1, MaxClass = 11 }
+            });
+
+            teachers.AddRange(new List<Teacher>()
+            {
+                new Teacher { Id = 1, FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко",
+                            Position = "Учитель младших классов" },
+                new Teacher { Id = 2, FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко",
+                            Position = "Учитель младших классов" },
+                new Teacher { Id = 3, FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва",
+                            Position = "Учитель младших классов" },
+                new Teacher { Id = 4, FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко",
+                            Position = "Учитель младших классов" },
+                new Teacher { Id = 5, FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко",
+                            Position = "Учитель" },
+                new Teacher { Id = 6, FirstName = "Кирилл", MiddleName = "Александрович", LastName = "Жилинский",
+                            Position = "Учитель" },
+                new Teacher { Id = 7, FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова",
+                            Position = "Учитель" },
+                new Teacher { Id = 8, FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая",
+                            Position = "Учитель" },
+                new Teacher { Id = 9, FirstName = "Денис", MiddleName = "Николаевич", LastName = "Марченко",
+                            Position = "Учитель" },
+                new Teacher { Id = 10, FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович",
+                            Position = "Учитель" },
+                new Teacher { Id = 11, FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович",
+                            Position = "Учитель" },
+                new Teacher { Id = 12, FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич",
+                            Position = "Учитель" },
+                new Teacher { Id = 13, FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко",
+                            Position = "Учитель" },
+                new Teacher { Id = 14, FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич",
+                            Position = "Учитель" },
+                new Teacher { Id = 15, FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская",
+                            Position = "Учитель" },
+                new Teacher { Id = 16, FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук",
+                            Position = "Учитель" },
+                new Teacher { Id = 17, FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова",
+                            Position = "Завуч" },
+                new Teacher { Id = 18, FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович",
+                            Position = "Директор" }
+            });
+
+            students.AddRange(new List<Student>()
+            {
                 new Student { Id = 1, FirstName = "Александр", MiddleName = "Иванович", LastName = "Пельш",
                             Gender = "мужской", Birthday = new DateTime(2007, 7, 15).ToShortDateString(), ClassId = 1 },
                 new Student { Id = 2, FirstName = "Иван", MiddleName = "Олегович", LastName = "Кролов",
                             Gender = "мужской", Birthday = new DateTime(2005, 9, 27).ToShortDateString(), ClassId = 2 },
                 new Student { Id = 3, FirstName = "Игорь", MiddleName = "Петрович", LastName = "Абоба",
                             Gender = "мужской", Birthday = new DateTime(2009, 1, 20).ToShortDateString(), ClassId = 3 }
-                });
-            modelBuilder.Entity<Class>().HasData(
-                new Class[]
+
+            });  
+            
+            for (int i = 1; i < 12; i++)
+            {
+                classes.Add(new Class { Id = i, ClassTeacherId = teachers[rand.Next(0, teachers.Count)].Id });
+            }
+
+            int id = 1;
+            int max_hours;            
+            for (int i = 1; i <= classes.Count; i++)
+            {
+                for (int j = 1; j <= (i < 5 ? 5 : 6); j++)
                 {
-                new Class { Id = 1, Name = "1", ClassTeacherId = 1 },
-                new Class { Id = 2, Name = "2", ClassTeacherId = 2 },
-                new Class { Id = 3, Name = "3", ClassTeacherId = 2 },
-                new Class { Id = 4, Name = "4", ClassTeacherId = 2 },
-                new Class { Id = 5, Name = "5", ClassTeacherId = 2 },
-                new Class { Id = 6, Name = "6", ClassTeacherId = 2 },
-                new Class { Id = 7, Name = "7", ClassTeacherId = 2 },
-                new Class { Id = 8, Name = "8", ClassTeacherId = 2 },
-                new Class { Id = 9, Name = "9", ClassTeacherId = 2 },
-                new Class { Id = 10, Name = "10", ClassTeacherId = 2 },
-                new Class { Id = 11, Name = "11", ClassTeacherId = 3 }
-                });
-            modelBuilder.Entity<SchoolDay>().HasData(
-                new SchoolDay[]
-                {
-                new SchoolDay { Id = 1, Name = "Понедельник", ClassId = 1 , Lesson1Id = 1 },
-                new SchoolDay { Id = 2, Name = "Вторник", ClassId = 1 },
-                new SchoolDay { Id = 3, Name = "Среда", ClassId = 1 },
-                new SchoolDay { Id = 4, Name = "Четверг", ClassId = 1 },
-                new SchoolDay { Id = 5, Name = "Пятница", ClassId = 1 }
-                });
+                    if (i == 1)
+                    {
+                        max_hours = 4;
+                    }
+                    else if (i > 1 & i < 5)
+                    {
+                        max_hours = 5;
+                    }
+                    else if (i > 4 & i < 7)
+                    {
+                        max_hours = 6;
+                    }
+                    else
+                    {
+                        max_hours = 7;
+                    }
+                    academicSubjects_filtered = academicSubjects.Where(p => p.MinClass <= i && p.MaxClass >= i).ToList();
+                    for (int k = 1; k <= max_hours; k++)
+                    {
+                        Lesson lesson = new Lesson();
+                        lesson.Id = id;
+                        lesson.Index = k;
+                        lesson.Day = j;
+                        lesson.ClassId = i;
+                        lesson.AcademicSubjectId = academicSubjects_filtered[rand.Next(0, academicSubjects_filtered.Count)].Id;
+                        lessons.Add(lesson);
+                        id++;
+                    }
+                }
+            };
+
+            modelBuilder.Entity<AcademicSubject>()
+                .HasMany(c => c.Teachers)
+                .WithMany(s => s.AcademicSubjects)
+                .UsingEntity(j => j.ToTable("SubjectsDistribution"))
+                .HasData(academicSubjects);
+
+            modelBuilder.Entity<Teacher>()
+                .HasMany(c => c.AcademicSubjects)
+                .WithMany(s => s.Teachers)
+                .UsingEntity(j => j.ToTable("SubjectsDistribution"))
+                .HasData(teachers);
+
+            modelBuilder.Entity<Student>().HasData(students);
+
+            modelBuilder.Entity<Class>()
+                .HasMany(c => c.Teachers)
+                .WithMany(s => s.Classes)
+                .UsingEntity(j => j.ToTable("ClassesDistribution"))
+                .HasOne(p => p.ClassTeacher)
+                .WithOne(x => x.Class);                   
+
+            modelBuilder.Entity<Class>().HasData(classes);
+
+            modelBuilder.Entity<Lesson>().HasData(lessons);
         }
     }
 }

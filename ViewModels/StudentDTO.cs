@@ -10,6 +10,5 @@ namespace School.ViewModels
         public string LastName { get; set; }
         public string Birthday { get; set; }
         public int ClassId { get; set; }
-        public string ClassName { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace School.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TeacherDTO>>> GetTeachers()
         {
-            var context = await _context.Teachers.Include(x => x.AcademicSubject).ToListAsync();
+            var context = await _context.Teachers.Include(x => x.AcademicSubjects).OrderBy(z => z.LastName).ToListAsync();
             var teachers = _mapper.Map<List<Teacher>, List<TeacherDTO>>(context);
             return teachers;
         }
@@ -36,7 +36,7 @@ namespace School.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersFullNames()
         {
-            var context = await _context.Teachers.ToListAsync();
+            var context = await _context.Teachers.OrderBy(x => x.LastName).ToListAsync();
             var teachers = _mapper.Map<List<Teacher>, List<TeacherFullNameDTO>>(context);
             return teachers;
         }
@@ -89,7 +89,7 @@ namespace School.Controllers
         {
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
-            var context = _context.Teachers.Include(x => x.AcademicSubject).FirstOrDefault(x => x.Id == teacher.Id);
+            var context = _context.Teachers.Include(x => x.AcademicSubjects).FirstOrDefault(x => x.Id == teacher.Id);
             var answer = _mapper.Map<Teacher, TeacherDTO>(context);
 
             return CreatedAtAction("GetTeacher", new { id = teacher.Id }, answer);

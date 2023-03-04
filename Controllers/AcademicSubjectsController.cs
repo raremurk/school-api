@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
+using AutoMapper;
+using School.ViewModels;
 
 namespace School.Controllers
 {
@@ -14,16 +16,29 @@ namespace School.Controllers
     public class AcademicSubjectsController : ControllerBase
     {
         private readonly SchoolContext _context;
+        private readonly IMapper _mapper;
 
-        public AcademicSubjectsController(SchoolContext context)
+        public AcademicSubjectsController(SchoolContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AcademicSubject>>> GetAcademicSubjects()
+        public async Task<ActionResult<IEnumerable<AcademicSubjectDTO>>> GetAcademicSubjects()
         {
-            return await _context.AcademicSubjects.ToListAsync();
+            var context = await _context.AcademicSubjects.ToListAsync();
+            var subjects = _mapper.Map<List<AcademicSubject>, List<AcademicSubjectDTO>>(context);
+            return subjects;
+        }
+
+        [Route("class/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AcademicSubjectDTO>>> GetClassAcademicSubjects(int id)
+        {
+            var context = await _context.AcademicSubjects.Where(p => p.MinClass <= id && p.MaxClass >= id).ToListAsync();
+            var subjects = _mapper.Map<List<AcademicSubject>, List<AcademicSubjectDTO>>(context);
+            return subjects;
         }
 
         [HttpGet("{id}")]

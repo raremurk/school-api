@@ -32,27 +32,9 @@ namespace School.Controllers
             return teachers;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Class>> GetClass(int id)
-        {
-            var @class = await _context.Classes.FindAsync(id);
-
-            if (@class == null)
-            {
-                return NotFound();
-            }
-
-            return @class;
-        }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClass(int id, Class @class)
         {
-            if (id != @class.Id)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(@class).State = EntityState.Modified;
 
             try
@@ -70,32 +52,6 @@ namespace School.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<ClassDTO>> PostClass(Class @class)
-        {
-            _context.Classes.Add(@class);
-            await _context.SaveChangesAsync();
-            var context = _context.Classes.Include(x => x.ClassTeacher).FirstOrDefault(x => x.Id == @class.Id);
-            var answer = _mapper.Map<Class, ClassDTO>(context);
-
-            return CreatedAtAction("GetClass", new { id = @class.Id }, answer);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(int id)
-        {
-            var @class = await _context.Classes.FindAsync(id);
-            if (@class == null)
-            {
-                return NotFound();
-            }
-
-            _context.Classes.Remove(@class);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
