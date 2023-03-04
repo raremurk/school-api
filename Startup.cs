@@ -16,6 +16,7 @@ namespace School
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<SchoolContext>(options => options.UseSqlite("Filename=School.db"));
             services.AddControllers(); 
         }
@@ -25,6 +26,7 @@ namespace School
             app.UseDeveloperExceptionPage();
 
             app.UseRouting();
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {

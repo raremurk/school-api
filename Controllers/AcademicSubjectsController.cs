@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using School.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using School.Models;
 
 namespace School.Controllers
 {
@@ -13,7 +13,7 @@ namespace School.Controllers
     [ApiController]
     public class AcademicSubjectsController : ControllerBase
     {
-        SchoolContext db;
+        private readonly SchoolContext db;
         public AcademicSubjectsController(SchoolContext context)
         {
             db = context;
