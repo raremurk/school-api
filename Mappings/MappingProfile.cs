@@ -37,10 +37,8 @@ namespace School.Mappings
 
             CreateMap<Student, StudentDTO>();
             CreateMap<Lesson, LessonDTO>()
-                .ForMember("AcademicSubjectName", opt => opt.MapFrom(c => c.AcademicSubject.ShortName));
+                .ForMember("AcademicSubjectName", opt => opt.MapFrom(c => c.AcademicSubject.Name));
             CreateMap<AcademicSubject, AcademicSubjectDTO>();
-
-
         }
     }
 }

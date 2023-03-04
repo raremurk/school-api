@@ -8,8 +8,7 @@ namespace School.Models
     public class AcademicSubject
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ShortName { get; set; }        
+        public string Name { get; set; }     
         public int? MinClass { get; set; }
         public int? MaxClass { get; set; }
 

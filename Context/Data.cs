@@ -25,31 +25,30 @@ namespace School.Context
         {
             academicSubjects.AddRange(new List<AcademicSubject>()
             {
-                new AcademicSubject { Id = 1, Name = "Белорусский язык", ShortName ="Белорусский язык", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 2, Name = "Белорусская литература", ShortName ="Белорусская лит.", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 3, Name = "Русский язык", ShortName = "Русский язык", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 4, Name = "Русская литература", ShortName = "Русская лит.", MinClass = 1, MaxClass = 11 },                
-                new AcademicSubject { Id = 5, Name = "Трудовое обучение", ShortName = "Трудовое обучение", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 6, Name = "Черчение", ShortName = "Черчение", MinClass = 10, MaxClass = 10 },       
-                new AcademicSubject { Id = 7, Name = "Всемирная история", ShortName = "Всемирная история", MinClass = 5, MaxClass = 11 },
-                new AcademicSubject { Id = 8, Name = "История Беларуси", ShortName = "История Беларуси", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 9, Name = "Обществоведение", ShortName = "Обществоведение", MinClass = 9, MaxClass = 11 },
-                new AcademicSubject { Id = 10, Name = "Информатика", ShortName = "Информатика", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 11, Name = "Физика", ShortName = "Физика", MinClass = 7, MaxClass = 11 },
-                new AcademicSubject { Id = 12, Name = "Астрономия", ShortName = "Астрономия", MinClass = 11, MaxClass = 11 },
-                new AcademicSubject { Id = 13, Name = "Биология", ShortName = "Биология", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 14, Name = "Химия", ShortName = "Химия", MinClass = 7, MaxClass = 11 },
-                new AcademicSubject { Id = 15, Name = "География", ShortName = "География", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 16, Name = "Математика", ShortName = "Математика", MinClass = 1, MaxClass = 11 },                
-                new AcademicSubject { Id = 17, Name = "Иностранный язык", ShortName = "Иностранный язык", MinClass = 3, MaxClass = 11 },
-                new AcademicSubject { Id = 18, Name = "Физическая культура и здоровье", ShortName = "Физкультура", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 19, Name = "Допризывная и медицинская подготовка", ShortName = "ДиМП", MinClass = 10, MaxClass = 11 },
-                new AcademicSubject { Id = 20, Name = "Искусство", ShortName = "Искусство", MinClass = 5, MaxClass = 9 },
-                new AcademicSubject { Id = 21, Name = "Человек и мир", ShortName = "Человек и мир", MinClass = 1, MaxClass = 5 },                
-                new AcademicSubject { Id = 22, Name = "Изобразительное искусство", ShortName = "Изобр. искусство", MinClass = 1, MaxClass = 4 },
-                new AcademicSubject { Id = 23, Name = "Музыка", ShortName = "Музыка", MinClass = 1, MaxClass = 4 },
-                new AcademicSubject { Id = 24, Name = "Основы безопасности жизнедеятельности", ShortName = "ОБЖ", MinClass = 2, MaxClass = 5 },                
-                new AcademicSubject { Id = 25, Name = "Форточка", ShortName = "---", MinClass = 1, MaxClass = 11 }
+                new AcademicSubject { Id = 1, Name ="Белорусский язык", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 2, Name ="Белорусская лит.", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 3, Name = "Русский язык", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 4, Name = "Русская лит.", MinClass = 1, MaxClass = 11 },                
+                new AcademicSubject { Id = 5, Name = "Трудовое обучение", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 6, Name = "Черчение", MinClass = 10, MaxClass = 10 },       
+                new AcademicSubject { Id = 7, Name = "Всемирная история", MinClass = 5, MaxClass = 11 },
+                new AcademicSubject { Id = 8, Name = "История Беларуси", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 9, Name = "Обществоведение", MinClass = 9, MaxClass = 11 },
+                new AcademicSubject { Id = 10, Name = "Информатика", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 11, Name = "Физика", MinClass = 7, MaxClass = 11 },
+                new AcademicSubject { Id = 12, Name = "Астрономия", MinClass = 11, MaxClass = 11 },
+                new AcademicSubject { Id = 13, Name = "Биология", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 14, Name = "Химия", MinClass = 7, MaxClass = 11 },
+                new AcademicSubject { Id = 15, Name = "География", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Id = 16, Name = "Математика", MinClass = 1, MaxClass = 11 },                
+                new AcademicSubject { Id = 17, Name = "Иностранный язык", MinClass = 3, MaxClass = 11 },
+                new AcademicSubject { Id = 18, Name = "Физкультура", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Id = 19, Name = "ДиМП", MinClass = 10, MaxClass = 11 },
+                new AcademicSubject { Id = 20, Name = "Искусство", MinClass = 5, MaxClass = 9 },
+                new AcademicSubject { Id = 21, Name = "Человек и мир", MinClass = 1, MaxClass = 5 },                
+                new AcademicSubject { Id = 22, Name = "Изобр. искусство", MinClass = 1, MaxClass = 4 },
+                new AcademicSubject { Id = 23, Name = "Музыка", MinClass = 1, MaxClass = 4 },
+                new AcademicSubject { Id = 24, Name = "ОБЖ", MinClass = 2, MaxClass = 5 }
             });
 
             return academicSubjects;
@@ -105,11 +104,11 @@ namespace School.Context
             students.AddRange(new List<Student>()
             {
                 new Student { Id = 1, FirstName = "Александр", MiddleName = "Иванович", LastName = "Пельш",
-                            Gender = "мужской", Birthday = new DateTime(2007, 7, 15).ToShortDateString(), ClassId = 1 },
+                            Gender = "Мужской", Birthday = new DateTime(2007, 7, 15).ToString("yyyy-MM-dd"), ClassId = 1 },
                 new Student { Id = 2, FirstName = "Иван", MiddleName = "Олегович", LastName = "Кролов",
-                            Gender = "мужской", Birthday = new DateTime(2005, 9, 27).ToShortDateString(), ClassId = 2 },
+                            Gender = "Мужской", Birthday = new DateTime(2005, 9, 27).ToString("yyyy-MM-dd"), ClassId = 2 },
                 new Student { Id = 3, FirstName = "Игорь", MiddleName = "Петрович", LastName = "Абоба",
-                            Gender = "мужской", Birthday = new DateTime(2009, 1, 20).ToShortDateString(), ClassId = 3 }
+                            Gender = "Мужской", Birthday = new DateTime(2009, 1, 20).ToString("yyyy-MM-dd"), ClassId = 3 }
 
             });
 
@@ -132,24 +131,24 @@ namespace School.Context
             int max_hours;
             for (int i = 1; i <= classes.Count; i++)
             {
+                if (i == 1)
+                {
+                    max_hours = 4;
+                }
+                else if (i > 1 & i < 5)
+                {
+                    max_hours = 5;
+                }
+                else if (i > 4 & i < 7)
+                {
+                    max_hours = 6;
+                }
+                else
+                {
+                    max_hours = 7;
+                }
                 for (int j = 1; j <= (i < 5 ? 5 : 6); j++)
                 {
-                    if (i == 1)
-                    {
-                        max_hours = 4;
-                    }
-                    else if (i > 1 & i < 5)
-                    {
-                        max_hours = 5;
-                    }
-                    else if (i > 4 & i < 7)
-                    {
-                        max_hours = 6;
-                    }
-                    else
-                    {
-                        max_hours = 7;
-                    }
                     academicSubjects_filtered = academicSubjects.Where(p => p.MinClass <= i && p.MaxClass >= i).ToList();
                     for (int k = 1; k <= max_hours; k++)
                     {
@@ -176,8 +175,9 @@ namespace School.Context
                 new TeacherSubject { TeacherId = 1, AcademicSubjectId = 2 },
                 new TeacherSubject { TeacherId = 2, AcademicSubjectId = 3 },
                 new TeacherSubject { TeacherId = 2, AcademicSubjectId = 4 },
-                new TeacherSubject { TeacherId = 3, AcademicSubjectId = 5 },
-                new TeacherSubject { TeacherId = 3, AcademicSubjectId = 6 },
+                new TeacherSubject { TeacherId = 9, AcademicSubjectId = 5 },
+                new TeacherSubject { TeacherId = 9, AcademicSubjectId = 6 },
+                new TeacherSubject { TeacherId = 9, AcademicSubjectId = 24 },
                 new TeacherSubject { TeacherId = 4, AcademicSubjectId = 7 },
                 new TeacherSubject { TeacherId = 4, AcademicSubjectId = 8 },
                 new TeacherSubject { TeacherId = 4, AcademicSubjectId = 9 },

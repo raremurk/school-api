@@ -8,6 +8,6 @@ namespace School.ViewModels
     public class AcademicSubjectDTO
     {
         public int Id { get; set; }
-        public string ShortName { get; set; }
+        public string Name { get; set; }
     }
 }
