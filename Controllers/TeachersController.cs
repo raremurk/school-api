@@ -27,9 +27,11 @@ namespace School.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TeacherDTO>>> GetTeachers()
         {
-            var context = await _context.Teachers.Include(x => x.AcademicSubjects).OrderBy(z => z.LastName).ToListAsync();
-            var teachers = _mapper.Map<List<Teacher>, List<TeacherDTO>>(context);
-            return teachers;
+            var context = await _context.Teachers
+                .Include(p => p.TeacherSubjects)
+                .Include(x => x.TeacherClasses).AsNoTracking().ToListAsync();
+            var answer = _mapper.Map<List<Teacher>, List<TeacherDTO>>(context);
+            return answer;
         }
 
         [Route("all")]
@@ -62,6 +64,8 @@ namespace School.Controllers
             {
                 return BadRequest();
             }
+
+
 
             _context.Entry(teacher).State = EntityState.Modified;
 

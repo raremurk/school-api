@@ -19,8 +19,9 @@ namespace School
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<SchoolContext>(options => options.UseSqlite("Filename=School.db"));
-            services.AddControllers();
+            services.AddDbContext<SchoolContext>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAutoMapper(c => c.AddProfile<MappingProfile>(),typeof(Startup));
         }
 

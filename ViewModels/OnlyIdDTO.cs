@@ -1,13 +1,13 @@
-﻿using System;
+﻿using School.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace School.ViewModels
+namespace School.Models
 {
-    public class AcademicSubjectDTO
+    public class OnlyIdDTO
     {
         public int Id { get; set; }
-        public string ShortName { get; set; }
     }
 }

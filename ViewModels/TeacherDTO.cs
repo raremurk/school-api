@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using School.Models;
 
 namespace School.ViewModels
 {
@@ -9,7 +11,7 @@ namespace School.ViewModels
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Position { get; set; }
-        public int? AcademicSubjectId { get; set; }
-        public string AcademicSubjectName { get; set; }        
+        public List<OnlyIdDTO> AcademicSubjects { get; set; }
+        public List<OnlyIdDTO> Classes { get; set; }
     }
 }
