@@ -12,8 +12,7 @@ namespace School.Models
         public string Gender { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime Birthday { get; set; }
-        public int Age { get; set; }
+        public string Birthday { get; set; }
         public int? ClassId { get; set; }
         public Class Class { get; set; }
     }

@@ -12,45 +12,45 @@ namespace School.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TeachersController : ControllerBase
+    public class StudentsController : ControllerBase
     {
         private readonly SchoolContext _context;
         private readonly IMapper _mapper;
 
-        public TeachersController(SchoolContext context, IMapper mapper)
+        public StudentsController(SchoolContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
-            return await _context.Teachers.ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
 
-            if (teacher == null)
+            if (student == null)
             {
                 return NotFound();
             }
 
-            return teacher;
+            return student;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        public async Task<IActionResult> PutStudent(int id, Student student)
         {
-            if (id != teacher.Id)
+            if (id != student.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(teacher).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace School.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TeacherExists(id))
+                if (!StudentExists(id))
                 {
                     return NotFound();
                 }
@@ -72,32 +72,32 @@ namespace School.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-            _context.Teachers.Add(teacher);
+            _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
+            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeacher(int id)
+        public async Task<IActionResult> DeleteStudent(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
             {
                 return NotFound();
             }
 
-            _context.Teachers.Remove(teacher);
+            _context.Students.Remove(student);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TeacherExists(int id)
+        private bool StudentExists(int id)
         {
-            return _context.Teachers.Any(e => e.Id == id);
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

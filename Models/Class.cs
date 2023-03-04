@@ -8,7 +8,7 @@ namespace School.Models
         public string Name { get; set; }
         public int? ClassTeacherId { get; set; }
         public Teacher ClassTeacher { get; set; }
-        public List<Student> Students { get; set; }
-        public List<Ref> Refs { get; set; }
+        public List<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public List<Student> Students { get; set; } = new List<Student>();
     }
 }

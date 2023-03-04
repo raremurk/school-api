@@ -13,69 +13,88 @@ namespace School.Controllers
     [ApiController]
     public class AcademicSubjectsController : ControllerBase
     {
-        private readonly SchoolContext db;
+        private readonly SchoolContext _context;
+
         public AcademicSubjectsController(SchoolContext context)
         {
-            db = context;
+            _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AcademicSubject>>> Get()
+        public async Task<ActionResult<IEnumerable<AcademicSubject>>> GetAcademicSubjects()
         {
-            return await db.AcademicSubjects.ToListAsync();
+            return await _context.AcademicSubjects.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AcademicSubject>> Get(int id)
+        public async Task<ActionResult<AcademicSubject>> GetAcademicSubject(int id)
         {
-            AcademicSubject academicSubject = await db.AcademicSubjects.FirstOrDefaultAsync(x => x.Id == id);
+            var academicSubject = await _context.AcademicSubjects.FindAsync(id);
+
             if (academicSubject == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(academicSubject);
+
+            return academicSubject;
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAcademicSubject(int id, AcademicSubject academicSubject)
+        {
+            if (id != academicSubject.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(academicSubject).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AcademicSubjectExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
         [HttpPost]
-        public async Task<ActionResult<AcademicSubject>> Post(AcademicSubject academicSubject)
+        public async Task<ActionResult<AcademicSubject>> PostAcademicSubject(AcademicSubject academicSubject)
         {
-            if (academicSubject == null)
-            {
-                return BadRequest();
-            }
+            _context.AcademicSubjects.Add(academicSubject);
+            await _context.SaveChangesAsync();
 
-            db.AcademicSubjects.Add(academicSubject);
-            await db.SaveChangesAsync();
-            return Ok(academicSubject);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<AcademicSubject>> Put(AcademicSubject academicSubject)
-        {
-            if (academicSubject == null)
-            {
-                return BadRequest();
-            }
-            if(!db.AcademicSubjects.Any(x => x.Id == academicSubject.Id))
-            {
-                return NotFound();
-            }
-            db.Update(academicSubject);
-            await db.SaveChangesAsync();
-            return Ok(academicSubject);
+            return CreatedAtAction("GetAcademicSubject", new { id = academicSubject.Id }, academicSubject);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AcademicSubject>> Delete(int id)
+        public async Task<IActionResult> DeleteAcademicSubject(int id)
         {
-            AcademicSubject academicSubject = db.AcademicSubjects.FirstOrDefault(x => x.Id == id);
+            var academicSubject = await _context.AcademicSubjects.FindAsync(id);
             if (academicSubject == null)
             {
                 return NotFound();
             }
-            db.AcademicSubjects.Remove(academicSubject);
-            await db.SaveChangesAsync();
-            return Ok(academicSubject);
+
+            _context.AcademicSubjects.Remove(academicSubject);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool AcademicSubjectExists(int id)
+        {
+            return _context.AcademicSubjects.Any(e => e.Id == id);
         }
     }
 }
