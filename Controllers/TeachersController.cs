@@ -46,7 +46,7 @@ namespace School.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TeacherDTO>> GetTeacher(int id)
         {
-            var context = await _context.Teachers.FindAsync(id);
+            var context = await _context.Teachers.Include(p => p.TeacherSubjects).AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
             var teacher = _mapper.Map<Teacher, TeacherDTO>(context);
 
             if (teacher == null)
@@ -58,16 +58,26 @@ namespace School.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        public async Task<IActionResult> PutTeacher(int id, TeacherDTO teacher)
         {
             if (id != teacher.Id)
             {
                 return BadRequest();
             }
+            var teacher_db = _mapper.Map<TeacherDTO, Teacher>(teacher);
 
+            _context.Entry(teacher_db).State = EntityState.Modified;
 
+            var db_teacher = await _context.Teachers
+                .Include(p => p.TeacherSubjects)
+                .Include(p => p.TeacherClasses).FirstOrDefaultAsync(d => d.Id == id);
 
-            _context.Entry(teacher).State = EntityState.Modified;
+            db_teacher.TeacherSubjects.RemoveRange(0, db_teacher.TeacherSubjects.Count);
+            db_teacher.TeacherClasses.RemoveRange(0, db_teacher.TeacherClasses.Count);
+            var subjects = _mapper.Map<List<OnlyIdDTO>, List<TeacherSubject>>(teacher.TeacherSubjects);
+            var classes = _mapper.Map<List<OnlyIdDTO>, List<TeacherClass>>(teacher.TeacherClasses);
+            teacher_db.TeacherSubjects.AddRange(subjects);
+            teacher_db.TeacherClasses.AddRange(classes);
 
             try
             {
@@ -89,14 +99,16 @@ namespace School.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TeacherDTO>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<TeacherDTO>> PostTeacher(TeacherDTO teacher)
         {
-            _context.Teachers.Add(teacher);
-            await _context.SaveChangesAsync();
-            var context = _context.Teachers.Include(x => x.AcademicSubjects).FirstOrDefault(x => x.Id == teacher.Id);
-            var answer = _mapper.Map<Teacher, TeacherDTO>(context);
+            var teacher_db = _mapper.Map<TeacherDTO, Teacher>(teacher);
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, answer);
+            _context.Teachers.Add(teacher_db);
+            await _context.SaveChangesAsync();
+
+            var teacher_answer = _mapper.Map<Teacher, TeacherDTO>(teacher_db);
+
+            return CreatedAtAction("GetTeacher", new { id = teacher_answer.Id }, teacher_answer);
         }
 
         [HttpDelete("{id}")]

@@ -37,7 +37,9 @@ namespace School.Models
             modelBuilder.Entity<TeacherClass>().HasData(data.InitializeTeacherClasses());
 
             modelBuilder.Entity<Class>()
-                .HasOne(j => j.ClassTeacher);        
+                .HasOne(j => j.ClassTeacher)
+                .WithOne(j => j.Class)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Teacher>()                
                 .HasMany(p => p.AcademicSubjects)
@@ -46,7 +48,7 @@ namespace School.Models
                     j => j
                         .HasOne(pt => pt.AcademicSubject)
                         .WithMany(t => t.TeacherSubjects)
-                        .HasForeignKey(pt => pt.AcademicSubjectId),                       
+                        .HasForeignKey(pt => pt.AcademicSubjectId),                   
                     j => j
                         .HasOne(pt => pt.Teacher)
                         .WithMany(p => p.TeacherSubjects)

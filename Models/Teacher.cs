@@ -10,6 +10,8 @@ namespace School.Models
         public string LastName { get; set; }
         public string Position { get; set; }
 
+        public Class Class { get; set; }
+
         public List<AcademicSubject> AcademicSubjects { get; set; }
         public List<TeacherSubject> TeacherSubjects { get; set; }
 

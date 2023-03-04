@@ -17,14 +17,20 @@ namespace School.Mappings
                 .ForMember("ClassTeacherFullName", opt => opt.MapFrom
                     (c => c.ClassTeacher.LastName + " " + c.ClassTeacher.FirstName[0] + "." + c.ClassTeacher.MiddleName[0] + "."));
 
-            CreateMap<Teacher, TeacherDTO>()
-                .ForMember("AcademicSubjects", opt => opt.MapFrom(c => c.TeacherSubjects))
-                .ForMember("Classes", opt => opt.MapFrom(c => c.TeacherClasses));
+            CreateMap<Teacher, TeacherDTO>();
             CreateMap<TeacherDTO, Teacher>();
+
             CreateMap<TeacherSubject, OnlyIdDTO>()
                 .ForMember("Id", opt => opt.MapFrom(c => c.AcademicSubjectId));
+
+            CreateMap<OnlyIdDTO, TeacherSubject>()
+                .ForMember("AcademicSubjectId", opt => opt.MapFrom(c => c.Id));
+            CreateMap<OnlyIdDTO, TeacherClass>()
+                .ForMember("ClassId", opt => opt.MapFrom(c => c.Id));
+
             CreateMap<TeacherClass, OnlyIdDTO>()
                 .ForMember("Id", opt => opt.MapFrom(c => c.ClassId));
+
             CreateMap<Teacher, TeacherFullNameDTO>()
                 .ForMember("FullName", opt => opt.MapFrom
                     (c => c.LastName + " " + c.FirstName[0] + ". " + c.MiddleName[0] + "."));

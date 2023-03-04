@@ -120,7 +120,7 @@ namespace School.Context
         {
             for (int i = 1; i < 12; i++)
             {
-                classes.Add(new Class { Id = i, ClassTeacherId = teachers[rand.Next(0, teachers.Count)].Id });
+                classes.Add(new Class { Id = i, ClassTeacherId = teachers[i-1].Id });
             }
 
             return classes;

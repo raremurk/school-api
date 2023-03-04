@@ -11,7 +11,7 @@ namespace School.ViewModels
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Position { get; set; }
-        public List<OnlyIdDTO> AcademicSubjects { get; set; }
-        public List<OnlyIdDTO> Classes { get; set; }
+        public List<OnlyIdDTO> TeacherSubjects { get; set; }
+        public List<OnlyIdDTO> TeacherClasses { get; set; }
     }
 }
