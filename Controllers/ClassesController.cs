@@ -28,8 +28,22 @@ namespace School.Controllers
         public async Task<ActionResult<IEnumerable<ClassDTO>>> GetClasses()
         {
             var context = await _context.Classes.Include(x => x.ClassTeacher).ToListAsync();
-            var teachers = _mapper.Map<List<Class>, List<ClassDTO>>(context);
-            return teachers;
+            var classes = _mapper.Map<List<Class>, List<ClassDTO>>(context);
+            return classes;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ClassDTO>> GetClass(int id)
+        {
+            var context = await _context.Classes.Include(x => x.ClassTeacher).FirstOrDefaultAsync(p => p.Id == id);
+            var @class = _mapper.Map<Class, ClassDTO>(context);
+
+            if (@class == null)
+            {
+                return NotFound();
+            }
+
+            return @class;
         }
 
         [HttpPut("{id}")]

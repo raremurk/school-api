@@ -27,7 +27,7 @@ namespace School.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudent()
         {
-            var context = await _context.Students.Include(x => x.Class).ToListAsync();
+            var context = await _context.Students.Include(x => x.Class).Where(k => k.ClassId != null).ToListAsync();
             var students = _mapper.Map<List<Student>, List<StudentDTO>>(context);
             return students;
         }

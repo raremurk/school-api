@@ -20,8 +20,7 @@ namespace School
         {
             services.AddCors();
             services.AddDbContext<SchoolContext>();
-            services.AddControllers().AddNewtonsoftJson(options =>
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddControllers();
             services.AddAutoMapper(c => c.AddProfile<MappingProfile>(),typeof(Startup));
         }
 

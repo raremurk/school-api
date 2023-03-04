@@ -41,6 +41,11 @@ namespace School.Models
                 .WithOne(j => j.Class)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<Lesson>()
+                .HasOne(j => j.AcademicSubject)
+                .WithMany(j => j.Lessons)
+                .OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Teacher>()                
                 .HasMany(p => p.AcademicSubjects)
                 .WithMany(p => p.Teachers)

@@ -8,48 +8,52 @@ namespace School.Context
 {
     public class Data
     {
-        Random rand = new Random();
+        readonly Random rand = new();
 
-        List<AcademicSubject> academicSubjects = new List<AcademicSubject>();
-        List<Teacher> teachers = new List<Teacher>();
-        List<Student> students = new List<Student>();
-        List<Class> classes = new List<Class>();
-        List<Lesson> lessons = new List<Lesson>();
-        
-        List<AcademicSubject> academicSubjects_filtered = new List<AcademicSubject>();
+        readonly List<AcademicSubject> academicSubjects = new();
+        readonly List<Teacher> teachers = new();
+        readonly List<Student> students = new();
+        readonly List<Class> classes = new();
+        readonly List<Lesson> lessons = new(); 
+        readonly List<TeacherSubject> teachersSubjects = new();
+        readonly List<TeacherClass> teachersClasses = new();
 
-        List<TeacherSubject> teachersSubjects = new List<TeacherSubject>();
-        List<TeacherClass> teachersClasses = new List<TeacherClass>();
+        List<AcademicSubject> academicSubjects_filtered = new();
 
         public List<AcademicSubject> InitializeAcademicSubjects()
         {
             academicSubjects.AddRange(new List<AcademicSubject>()
             {
-                new AcademicSubject { Id = 1, Name ="Белорусский язык", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 2, Name ="Белорусская лит.", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 3, Name = "Русский язык", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 4, Name = "Русская лит.", MinClass = 1, MaxClass = 11 },                
-                new AcademicSubject { Id = 5, Name = "Трудовое обучение", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 6, Name = "Черчение", MinClass = 10, MaxClass = 10 },       
-                new AcademicSubject { Id = 7, Name = "Всемирная история", MinClass = 5, MaxClass = 11 },
-                new AcademicSubject { Id = 8, Name = "История Беларуси", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 9, Name = "Обществоведение", MinClass = 9, MaxClass = 11 },
-                new AcademicSubject { Id = 10, Name = "Информатика", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 11, Name = "Физика", MinClass = 7, MaxClass = 11 },
-                new AcademicSubject { Id = 12, Name = "Астрономия", MinClass = 11, MaxClass = 11 },
-                new AcademicSubject { Id = 13, Name = "Биология", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 14, Name = "Химия", MinClass = 7, MaxClass = 11 },
-                new AcademicSubject { Id = 15, Name = "География", MinClass = 6, MaxClass = 11 },
-                new AcademicSubject { Id = 16, Name = "Математика", MinClass = 1, MaxClass = 11 },                
-                new AcademicSubject { Id = 17, Name = "Иностранный язык", MinClass = 3, MaxClass = 11 },
-                new AcademicSubject { Id = 18, Name = "Физкультура", MinClass = 1, MaxClass = 11 },
-                new AcademicSubject { Id = 19, Name = "ДиМП", MinClass = 10, MaxClass = 11 },
-                new AcademicSubject { Id = 20, Name = "Искусство", MinClass = 5, MaxClass = 9 },
-                new AcademicSubject { Id = 21, Name = "Человек и мир", MinClass = 1, MaxClass = 5 },                
-                new AcademicSubject { Id = 22, Name = "Изобр. искусство", MinClass = 1, MaxClass = 4 },
-                new AcademicSubject { Id = 23, Name = "Музыка", MinClass = 1, MaxClass = 4 },
-                new AcademicSubject { Id = 24, Name = "ОБЖ", MinClass = 2, MaxClass = 5 }
+                new AcademicSubject { Name = "Белорусский язык", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Name = "Белорусская лит.", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Name = "Русский язык", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Name = "Русская лит.", MinClass = 1, MaxClass = 11 },                
+                new AcademicSubject { Name = "Трудовое обучение", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Name = "Черчение", MinClass = 10, MaxClass = 10 },       
+                new AcademicSubject { Name = "Всемирная история", MinClass = 5, MaxClass = 11 },
+                new AcademicSubject { Name = "История Беларуси", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Name = "Обществоведение", MinClass = 9, MaxClass = 11 },
+                new AcademicSubject { Name = "Информатика", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Name = "Физика", MinClass = 7, MaxClass = 11 },
+                new AcademicSubject { Name = "Астрономия", MinClass = 11, MaxClass = 11 },
+                new AcademicSubject { Name = "Биология", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Name = "Химия", MinClass = 7, MaxClass = 11 },
+                new AcademicSubject { Name = "География", MinClass = 6, MaxClass = 11 },
+                new AcademicSubject { Name = "Математика", MinClass = 1, MaxClass = 11 },                
+                new AcademicSubject { Name = "Иностранный язык", MinClass = 3, MaxClass = 11 },
+                new AcademicSubject { Name = "Физкультура", MinClass = 1, MaxClass = 11 },
+                new AcademicSubject { Name = "ДиМП", MinClass = 10, MaxClass = 11 },
+                new AcademicSubject { Name = "Искусство", MinClass = 5, MaxClass = 9 },
+                new AcademicSubject { Name = "Человек и мир", MinClass = 1, MaxClass = 5 },                
+                new AcademicSubject { Name = "Изобр. искусство", MinClass = 1, MaxClass = 4 },
+                new AcademicSubject { Name = "Музыка", MinClass = 1, MaxClass = 4 },
+                new AcademicSubject { Name = "ОБЖ", MinClass = 2, MaxClass = 5 }
             });
+
+            for (int i = 0; i < academicSubjects.Count; i++)
+            {
+                academicSubjects[i].Id = i + 1;
+            }
 
             return academicSubjects;
         }
@@ -58,43 +62,30 @@ namespace School.Context
         {
             teachers.AddRange(new List<Teacher>()
             {
-                new Teacher { Id = 1, FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко",
-                            Position = "Учитель" },
-                new Teacher { Id = 2, FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко",
-                            Position = "Учитель" },
-                new Teacher { Id = 3, FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва",
-                            Position = "Учитель" },
-                new Teacher { Id = 4, FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко",
-                            Position = "Учитель" },
-                new Teacher { Id = 5, FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко",
-                            Position = "Учитель" },
-                new Teacher { Id = 6, FirstName = "Кирилл", MiddleName = "Александрович", LastName = "Жилинский",
-                            Position = "Учитель" },
-                new Teacher { Id = 7, FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова",
-                            Position = "Учитель" },
-                new Teacher { Id = 8, FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая",
-                            Position = "Учитель" },
-                new Teacher { Id = 9, FirstName = "Денис", MiddleName = "Николаевич", LastName = "Марченко",
-                            Position = "Учитель" },
-                new Teacher { Id = 10, FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович",
-                            Position = "Учитель" },
-                new Teacher { Id = 11, FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович",
-                            Position = "Учитель" },
-                new Teacher { Id = 12, FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич",
-                            Position = "Учитель" },
-                new Teacher { Id = 13, FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко",
-                            Position = "Учитель" },
-                new Teacher { Id = 14, FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич",
-                            Position = "Учитель" },
-                new Teacher { Id = 15, FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская",
-                            Position = "Учитель" },
-                new Teacher { Id = 16, FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук",
-                            Position = "Учитель" },
-                new Teacher { Id = 17, FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова",
-                            Position = "Завуч" },
-                new Teacher { Id = 18, FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович",
-                            Position = "Директор" }
+                new Teacher { FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко", Position = "Учитель мл. классов" },
+                new Teacher { FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко", Position = "Учитель мл. классов" },
+                new Teacher { FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва", Position = "Учитель мл. классов" },
+                new Teacher { FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко", Position = "Учитель мл. классов" },
+                new Teacher { FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко", Position = "Учитель" },
+                new Teacher { FirstName = "Кирилл", MiddleName = "Александрович", LastName = "Жилинский", Position = "Учитель" },
+                new Teacher { FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова", Position = "Учитель" },
+                new Teacher { FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая", Position = "Учитель" },
+                new Teacher { FirstName = "Денис", MiddleName = "Николаевич", LastName = "Марченко", Position = "Учитель" },
+                new Teacher { FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович", Position = "Учитель" },
+                new Teacher { FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович", Position = "Учитель" },
+                new Teacher { FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич", Position = "Учитель" },
+                new Teacher { FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко", Position = "Учитель" },
+                new Teacher { FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич", Position = "Учитель" },
+                new Teacher { FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская", Position = "Учитель" },
+                new Teacher { FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук", Position = "Учитель" },
+                new Teacher { FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова", Position = "Завуч" },
+                new Teacher { FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович", Position = "Директор" }
             });
+
+            for (int i = 0; i < teachers.Count; i++)
+            {
+                teachers[i].Id = i + 1;
+            }
 
             return teachers;
         }
@@ -103,14 +94,130 @@ namespace School.Context
         {
             students.AddRange(new List<Student>()
             {
-                new Student { Id = 1, FirstName = "Александр", MiddleName = "Иванович", LastName = "Пельш",
-                            Gender = "Мужской", Birthday = new DateTime(2007, 7, 15).ToString("yyyy-MM-dd"), ClassId = 1 },
-                new Student { Id = 2, FirstName = "Иван", MiddleName = "Олегович", LastName = "Кролов",
-                            Gender = "Мужской", Birthday = new DateTime(2005, 9, 27).ToString("yyyy-MM-dd"), ClassId = 2 },
-                new Student { Id = 3, FirstName = "Игорь", MiddleName = "Петрович", LastName = "Абоба",
-                            Gender = "Мужской", Birthday = new DateTime(2009, 1, 20).ToString("yyyy-MM-dd"), ClassId = 3 }
+                new Student { FirstName = "Юлия", MiddleName = "Анатольевна", LastName = "Салей", Gender = "W"},
+                new Student { FirstName = "Елизавета", MiddleName = "Валентиновна", LastName = "Хацкевич", Gender = "W"},
+                new Student { FirstName = "Арсений", MiddleName = "Кириллович", LastName = "Волков", Gender = "M"},
+                new Student { FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Колесникова", Gender = "W" },
+                new Student { FirstName = "Диана", MiddleName = "Андреевна", LastName = "Тарасова", Gender = "W" },
+                new Student { FirstName = "Павел", MiddleName = "Артемович", LastName = "Васильев", Gender = "M" },
+                new Student { FirstName = "Владислав", MiddleName = "Борисович", LastName = "Петров", Gender = "M" },
+                new Student { FirstName = "Виталий", MiddleName = "Матвеевич", LastName = "Новиков", Gender = "M" },
+                new Student { FirstName = "Елена", MiddleName = "Михайловна", LastName = "Юрченко", Gender = "W" },
+                new Student { FirstName = "Карина", MiddleName = "Ивановна", LastName = "Новикова", Gender = "W" },
+                new Student { FirstName = "Александра", MiddleName = "Георгиевна", LastName = "Климович", Gender = "W" },
+                new Student { FirstName = "Дмитрий", MiddleName = "Борисович", LastName = "Романовский", Gender = "M" },
+                new Student { FirstName = "Олег", MiddleName = "Леонидович", LastName = "Дробышевский", Gender = "M" },
+                new Student { FirstName = "Семен", MiddleName = "Давыдович", LastName = "Петров", Gender = "M" },
+                new Student { FirstName = "Яна", MiddleName = "Валериевна", LastName = "Новикова", Gender = "W" },
+                new Student { FirstName = "Эдуард", MiddleName = "Анатольевич", LastName = "Гапоненко", Gender = "M" },
+                new Student { FirstName = "Борис", MiddleName = "Афанасьевич", LastName = "Карпович", Gender = "M" },
+                new Student { FirstName = "Наталья", MiddleName = "Геннадиевна", LastName = "Лукашевич", Gender = "W" },
+                new Student { FirstName = "Алексей", MiddleName = "Назарович", LastName = "Лисовский", Gender = "M" },
+                new Student { FirstName = "Филипп", MiddleName = "Яковлевич", LastName = "Савченко", Gender = "M" },
+                new Student { FirstName = "Евгения", MiddleName = "Федоровна", LastName = "Сенько", Gender = "W" },
+                new Student { FirstName = "Ольга", MiddleName = "Сергеевна", LastName = "Зайцева", Gender = "W" },
+                new Student { FirstName = "Юрий", MiddleName = "Платонович", LastName = "Павлов", Gender = "M" },
+                new Student { FirstName = "Ангелина", MiddleName = "Эдуардовна", LastName = "Орлова", Gender = "W" },
+                new Student { FirstName = "Константин", MiddleName = "Родионович", LastName = "Петров", Gender = "M" },
+                new Student { FirstName = "Александр", MiddleName = "Назарович", LastName = "Миронов", Gender = "M" },
+                new Student { FirstName = "Олег", MiddleName = "Михайлович", LastName = "Коваленко", Gender = "M" },
+                new Student { FirstName = "Ольга", MiddleName = "Глебовна", LastName = "Кулешова", Gender = "W" },
+                new Student { FirstName = "Филипп", MiddleName = "Макарович", LastName = "Василенко", Gender = "M" }, 
+                new Student { FirstName = "Руслан", MiddleName = "Борисович", LastName = "Вашкевич", Gender = "M" },
+                new Student { FirstName = "Анастасия", MiddleName = "Давыдовна", LastName = "Денисенко", Gender = "W" },
+                new Student { FirstName = "Давид", MiddleName = "Васильевич", LastName = "Белый", Gender = "M" },
+                new Student { FirstName = "Ирина", MiddleName = "Андреевна", LastName = "Климович", Gender = "W" },
+                new Student { FirstName = "Богдан", MiddleName = "Витальевич", LastName = "Волков", Gender = "M" },
+                new Student { FirstName = "Светлана", MiddleName = "Евгеньевна", LastName = "Барановская", Gender = "W" },
+                new Student { FirstName = "Александра", MiddleName = "Ефимовна", LastName = "Кузнецова", Gender = "W" },
+                new Student { FirstName = "Евгения", MiddleName = "Матвеевна", LastName = "Медведева", Gender = "W" },
+                new Student { FirstName = "Егор", MiddleName = "Георгиевич", LastName = "Якимович", Gender = "M" },
+                new Student { FirstName = "Светлана", MiddleName = "Борисовна", LastName = "Медведева", Gender = "W" },
+                new Student { FirstName = "Анна", MiddleName = "Егоровна", LastName = "Михайлова", Gender = "W" },
+                new Student { FirstName = "Денис", MiddleName = "Константинович", LastName = "Петров", Gender = "M" },
+                new Student { FirstName = "Яна", MiddleName = "Вадимовна", LastName = "Федорова", Gender = "W" },
+                new Student { FirstName = "Денис", MiddleName = "Андреевич", LastName = "Бельский", Gender = "M" }, 
+                new Student { FirstName = "Назар", MiddleName = "Борисович", LastName = "Макаревич", Gender = "M" },
+                new Student { FirstName = "Николай", MiddleName = "Родионович", LastName = "Матусевич", Gender = "M" },
+                new Student { FirstName = "Максим", MiddleName = "Наумович", LastName = "Казак", Gender = "M" },
+                new Student { FirstName = "Александра", MiddleName = "Тимофеевна", LastName = "Борисюк", Gender = "W" },
+                new Student { FirstName = "Яна", MiddleName = "Юрьевна", LastName = "Шевченко", Gender = "W" },
+                new Student { FirstName = "Екатерина", MiddleName = "Яковлевна", LastName = "Гулевич", Gender = "W" },
+                new Student { FirstName = "Артур", MiddleName = "Савельевич", LastName = "Петровский", Gender = "M" },
+                new Student { FirstName = "Карина", MiddleName = "Олеговна", LastName = "Солонович", Gender = "W" }, 
+                new Student { FirstName = "Татьяна", MiddleName = "Глебовна", LastName = "Шаповал", Gender = "W" },
+                new Student { FirstName = "Дарья", MiddleName = "Ивановна", LastName = "Тарасова", Gender = "W" },
+                new Student { FirstName = "Денис", MiddleName = "Егорович", LastName = "Селезнёв", Gender = "M" },
+                new Student { FirstName = "Ольга", MiddleName = "Анатольевна", LastName = "Хомич", Gender = "W" },
+                new Student { FirstName = "Ярослав", MiddleName = "Вадимович", LastName = "Юрченко", Gender = "M" },
+                new Student { FirstName = "Эдуард", MiddleName = "Денисович", LastName = "Кузьменков", Gender = "M" },
+                new Student { FirstName = "Ангелина", MiddleName = "Геннадиевна", LastName = "Ковалевич", Gender = "W" },
+                new Student { FirstName = "Матвей", MiddleName = "Артемович", LastName = "Кравченко", Gender = "M" },
+                new Student { FirstName = "Захар", MiddleName = "Леонидович", LastName = "Юркевич", Gender = "M" },
+                new Student { FirstName = "Максим", MiddleName = "Дмитриевич", LastName = "Боричевский", Gender = "M" },
+                new Student { FirstName = "Иван", MiddleName = "Константинович", LastName = "Новицкий", Gender = "M" },
+                new Student { FirstName = "Александра", MiddleName = "Давыдовна", LastName = "Ковалёва", Gender = "W" },
+                new Student { FirstName = "Игорь", MiddleName = "Александрович", LastName = "Савицкий", Gender = "M" },
+                new Student { FirstName = "Анатолий", MiddleName = "Андреевич", LastName = "Новик", Gender = "M" },
+                new Student { FirstName = "Николай", MiddleName = "Витальевич", LastName = "Смирнов", Gender = "M" },
+                new Student { FirstName = "Илья", MiddleName = "Вадимович", LastName = "Мартинович", Gender = "M" },
+                new Student { FirstName = "Илья", MiddleName = "Богданович", LastName = "Кравцов", Gender = "M" }, 
+                new Student { FirstName = "Виталий", MiddleName = "Леонидович", LastName = "Богданов", Gender = "M" },
+                new Student { FirstName = "Глеб", MiddleName = "Маркович", LastName = "Андреюк", Gender = "M" },
+                new Student { FirstName = "Вячеслав", MiddleName = "Митрофанович", LastName = "Барановский", Gender = "M" },
+                new Student { FirstName = "Елена", MiddleName = "Назаровна", LastName = "Колб", Gender = "W" },
+                new Student { FirstName = "Антон", MiddleName = "Сергеевич", LastName = "Давидович", Gender = "M" },
+                new Student { FirstName = "Артур", MiddleName = "Андреевич", LastName = "Семенов", Gender = "M" },
+                new Student { FirstName = "Виталий", MiddleName = "Данилович", LastName = "Шаповал", Gender = "M" },
+                new Student { FirstName = "Матвей", MiddleName = "Константинович", LastName = "Семенов", Gender = "M" },
+                new Student { FirstName = "Екатерина", MiddleName = "Глебовна", LastName = "Цыбулько", Gender = "W" },
+                new Student { FirstName = "Дмитрий", MiddleName = "Михайлович", LastName = "Сахарчук", Gender = "M" }, 
+                new Student { FirstName = "Федор", MiddleName = "Эдуардович", LastName = "Шишло", Gender = "M" },
+                new Student { FirstName = "Тимур", MiddleName = "Романович", LastName = "Зуев", Gender = "M" },
+                new Student { FirstName = "Матвей", MiddleName = "Николаевич", LastName = "Романовский", Gender = "M" },
+                new Student { FirstName = "Анастасия", MiddleName = "Олеговна", LastName = "Романов", Gender = "W" },
+                new Student { FirstName = "Валерия", MiddleName = "Степановна", LastName = "Юрченко", Gender = "W" },
+                new Student { FirstName = "Надежда", MiddleName = "Федоровна", LastName = "Гавриленко", Gender = "W" },
+                new Student { FirstName = "Роман", MiddleName = "Петрович", LastName = "Новик", Gender = "M" },
+                new Student { FirstName = "Надежда", MiddleName = "Ивановна", LastName = "Прудникова", Gender = "W" },
+                new Student { FirstName = "Ангелина", MiddleName = "Максимовна", LastName = "Приходько", Gender = "W" }, 
+                new Student { FirstName = "Анастасия", MiddleName = "Михайловна", LastName = "Мацкевич", Gender = "W" },
+                new Student { FirstName = "Наталья", MiddleName = "Владимировна", LastName = "Дубовик", Gender = "W" },
+                new Student { FirstName = "Павел", MiddleName = "Леонидович", LastName = "Король", Gender = "M" },
+                new Student { FirstName = "Анастасия", MiddleName = "Константиновна", LastName = "Морозова", Gender = "W" },
+                new Student { FirstName = "Карина", MiddleName = "Вадимовна", LastName = "Макаренко", Gender = "W" },
+                new Student { FirstName = "Диана", MiddleName = "Андреевна", LastName = "Савицкая", Gender = "W" },
+                new Student { FirstName = "Елизавета", MiddleName = "Артемовна", LastName = "Гончарова", Gender = "W" },
+                new Student { FirstName = "Сергей", MiddleName = "Владимирович", LastName = "Марченко", Gender = "M" },
+                new Student { FirstName = "Полина", MiddleName = "Вячеславовна", LastName = "Климович", Gender = "W" },
+                new Student { FirstName = "Юрий", MiddleName = "Денисович", LastName = "Мартинович", Gender = "M" },
+                new Student { FirstName = "Филипп", MiddleName = "Родионович", LastName = "Ковалёв", Gender = "M" },
+                new Student { FirstName = "Юлия", MiddleName = "Николаевна", LastName = "Павловский", Gender = "W" },
+                new Student { FirstName = "Василий", MiddleName = "Михайлович", LastName = "Булыга", Gender = "M" },
+                new Student { FirstName = "Анастасия", MiddleName = "Григорьевна", LastName = "Павлович", Gender = "W" },
+                new Student { FirstName = "Ангелина", MiddleName = "Александровна", LastName = "Радевич", Gender = "W" },
+                new Student { FirstName = "Богдан", MiddleName = "Вадимович", LastName = "Гузаревич", Gender = "M" },
+                new Student { FirstName = "Кирилл", MiddleName = "Валентинович", LastName = "Кравчук", Gender = "M" },
+                new Student { FirstName = "Владимир", MiddleName = "Денисович", LastName = "Шпаковский", Gender = "M" },
+                new Student { FirstName = "Анатолий", MiddleName = "Максимович", LastName = "Михайлов", Gender = "M" },
+                new Student { FirstName = "Вячеслав", MiddleName = "Эдуардович", LastName = "Иванов", Gender = "M" },
+                new Student { FirstName = "Екатерина", MiddleName = "Федоровна", LastName = "Соловьёва", Gender = "W" },
+                new Student { FirstName = "Анастасия", MiddleName = "Николаевна", LastName = "Бурак", Gender = "W" },
+                new Student { FirstName = "Ирина", MiddleName = "Глебовна", LastName = "Морозова", Gender = "W" }
 
             });
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                int @class = i / 10;
+                int this_year = DateTime.Today.Year - 7;
+                DateTime start = new((this_year - 1) - @class, 08, 31);
+                DateTime end = new(this_year - @class, 08, 31);
+                int range = (end - start).Days;
+                students[i].Id = i + 1;
+                students[i].Birthday = start.AddDays(rand.Next(0, range)).ToString("yyyy-MM-dd");
+                students[i].ClassId = 1 + @class;
+            }
 
             return students;
         }
@@ -131,6 +238,7 @@ namespace School.Context
             int max_hours;
             for (int i = 1; i <= classes.Count; i++)
             {
+                academicSubjects_filtered = academicSubjects.Where(p => p.MinClass <= i && p.MaxClass >= i).ToList();
                 if (i == 1)
                 {
                     max_hours = 4;
@@ -148,16 +256,17 @@ namespace School.Context
                     max_hours = 7;
                 }
                 for (int j = 1; j <= (i < 5 ? 5 : 6); j++)
-                {
-                    academicSubjects_filtered = academicSubjects.Where(p => p.MinClass <= i && p.MaxClass >= i).ToList();
+                {                    
                     for (int k = 1; k <= max_hours; k++)
                     {
-                        Lesson lesson = new Lesson();
-                        lesson.Id = id;
-                        lesson.Index = k;
-                        lesson.Day = j;
-                        lesson.ClassId = i;
-                        lesson.AcademicSubjectId = academicSubjects_filtered[rand.Next(0, academicSubjects_filtered.Count)].Id;
+                        Lesson lesson = new()
+                        {
+                            Id = id,
+                            Index = k,
+                            Day = j,
+                            ClassId = i,
+                            AcademicSubjectId = academicSubjects_filtered[rand.Next(0, academicSubjects_filtered.Count)].Id
+                        };
                         lessons.Add(lesson);
                         id++;
                     }

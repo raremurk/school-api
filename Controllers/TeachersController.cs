@@ -34,11 +34,15 @@ namespace School.Controllers
             return answer;
         }
 
-        [Route("all")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersFullNames()
+        [HttpGet("all/{id}")]
+        public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersForClass(int id)
         {
-            var context = await _context.Teachers.OrderBy(x => x.LastName).ToListAsync();
+            var context = await _context.Teachers.Where(z => z.Class == null || z.Class.Id == id).OrderBy(x => x.LastName).ToListAsync();
+            if (id < 5)
+            {
+                context = context.Where(a => a.Position == "Учитель мл. классов").ToList();
+            }
+            
             var teachers = _mapper.Map<List<Teacher>, List<TeacherFullNameDTO>>(context);
             return teachers;
         }

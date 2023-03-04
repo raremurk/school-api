@@ -12,6 +12,7 @@ namespace School.Models
         public int? MinClass { get; set; }
         public int? MaxClass { get; set; }
 
+        public List<Lesson> Lessons { get; set; }
         public List<Teacher> Teachers { get; set; }
         public List<TeacherSubject> TeacherSubjects { get; set; }        
     }
