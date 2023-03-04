@@ -11,6 +11,5 @@ namespace School.Models
         public string Position { get; set; }
         public int? AcademicSubjectId { get; set; }
         public AcademicSubject AcademicSubject { get; set; }
-        public List<Class> Classes { get; set; } = new List<Class>();
     }
 }

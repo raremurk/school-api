@@ -5,10 +5,8 @@ namespace School.ViewModels
     public class ClassDTO
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Position { get; set; }
-        public string AcademicSubjectName { get; set; }
+        public string Name { get; set; }
+        public string ClassTeacherId { get; set; }
+        public string ClassTeacherFullName { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
+using School.ViewModels;
 
 namespace School.Controllers
 {
@@ -24,15 +25,27 @@ namespace School.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
+        public async Task<ActionResult<IEnumerable<TeacherDTO>>> GetTeachers()
         {
-            return await _context.Teachers.ToListAsync();
+            var context = await _context.Teachers.Include(x => x.AcademicSubject).ToListAsync();
+            var teachers = _mapper.Map<List<Teacher>, List<TeacherDTO>>(context);
+            return teachers;
+        }
+
+        [Route("all")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersFullNames()
+        {
+            var context = await _context.Teachers.ToListAsync();
+            var teachers = _mapper.Map<List<Teacher>, List<TeacherFullNameDTO>>(context);
+            return teachers;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<ActionResult<TeacherDTO>> GetTeacher(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
+            var context = await _context.Teachers.FindAsync(id);
+            var teacher = _mapper.Map<Teacher, TeacherDTO>(context);
 
             if (teacher == null)
             {
@@ -72,12 +85,14 @@ namespace School.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<TeacherDTO>> PostTeacher(Teacher teacher)
         {
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
+            var context = _context.Teachers.Include(x => x.AcademicSubject).FirstOrDefault(x => x.Id == teacher.Id);
+            var answer = _mapper.Map<Teacher, TeacherDTO>(context);
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
+            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, answer);
         }
 
         [HttpDelete("{id}")]

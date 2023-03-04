@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
+using School.ViewModels;
 
 namespace School.Controllers
 {
@@ -24,9 +25,11 @@ namespace School.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
+        public async Task<ActionResult<IEnumerable<ClassDTO>>> GetClasses()
         {
-            return await _context.Classes.ToListAsync();
+            var context = await _context.Classes.Include(x => x.ClassTeacher).ToListAsync();
+            var teachers = _mapper.Map<List<Class>, List<ClassDTO>>(context);
+            return teachers;
         }
 
         [HttpGet("{id}")]
@@ -72,12 +75,14 @@ namespace School.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Class>> PostClass(Class @class)
+        public async Task<ActionResult<ClassDTO>> PostClass(Class @class)
         {
             _context.Classes.Add(@class);
             await _context.SaveChangesAsync();
+            var context = _context.Classes.Include(x => x.ClassTeacher).FirstOrDefault(x => x.Id == @class.Id);
+            var answer = _mapper.Map<Class, ClassDTO>(context);
 
-            return CreatedAtAction("GetClass", new { id = @class.Id }, @class);
+            return CreatedAtAction("GetClass", new { id = @class.Id }, answer);
         }
 
         [HttpDelete("{id}")]

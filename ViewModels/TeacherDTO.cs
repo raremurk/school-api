@@ -9,6 +9,7 @@ namespace School.ViewModels
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Position { get; set; }
-        public string AcademicSubjectName { get; set; }
+        public int? AcademicSubjectId { get; set; }
+        public string AcademicSubjectName { get; set; }        
     }
 }
