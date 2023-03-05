@@ -1,23 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Context;
+using School_API.Models;
 
-namespace School.Models
+namespace School_API.Context
 {
     public class SchoolContext : DbContext
     {
-        public SchoolContext(DbContextOptions<SchoolContext> options)
-            : base(options)
+        public DbSet<AcademicSubject> AcademicSubjects { get; set; } = null!;
+        public DbSet<Teacher> Teachers { get; set; } = null!;
+        public DbSet<Student> Students { get; set; } = null!;
+        public DbSet<Class> Classes { get; set; } = null!;
+        public DbSet<Lesson> Lessons { get; set; } = null!;
+
+        public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
         {
-            this.Database.EnsureCreated();
+            Database.EnsureCreated();
         }
-
-        public DbSet<AcademicSubject> AcademicSubjects { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Class> Classes { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
-
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,15 +23,14 @@ namespace School.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Data data = new();
-
-            modelBuilder.Entity<AcademicSubject>().HasData(data.InitializeAcademicSubjects());
-            modelBuilder.Entity<Teacher>().HasData(data.InitializeTeachers());
-            modelBuilder.Entity<Class>().HasData(data.InitializeClasses());
-            modelBuilder.Entity<Student>().HasData(data.InitializeStudents());
-            modelBuilder.Entity<Lesson>().HasData(data.InitializeLessons());
-            modelBuilder.Entity<TeacherSubject>().HasData(data.InitializeTeacherSubjects());
-            modelBuilder.Entity<TeacherClass>().HasData(data.InitializeTeacherClasses());
+            var data = new Data();
+            modelBuilder.Entity<AcademicSubject>().HasData(data.GetAcademicSubjects());
+            modelBuilder.Entity<Teacher>().HasData(data.GetTeachers());
+            modelBuilder.Entity<Class>().HasData(data.GetClasses());
+            modelBuilder.Entity<Student>().HasData(data.GetStudents());
+            modelBuilder.Entity<Lesson>().HasData(data.GetLessons());
+            modelBuilder.Entity<TeacherSubject>().HasData(data.GetTeacherSubjects());
+            modelBuilder.Entity<TeacherClass>().HasData(data.GetTeacherClasses());
 
             modelBuilder.Entity<Class>()
                 .HasOne(j => j.ClassTeacher)

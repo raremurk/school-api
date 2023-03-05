@@ -1,15 +1,18 @@
 ﻿using AutoMapper;
-using School.Models;
-using School.ViewModels;
+using School_API.ViewModels;
+using School_API.Models;
 
-namespace School.Mappings
+namespace School_API.Mappings
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<AcademicSubject, AcademicSubjectDTO>();
-            CreateMap<AcademicSubjectDTO, AcademicSubject>();
+            CreateMap<AcademicSubject, AcademicSubjectDTO>().ReverseMap();
+
+            CreateMap<Student, StudentDTO>().ReverseMap();
+
+            CreateMap<Teacher, TeacherDTO>().ReverseMap();
 
             CreateMap<Class, OnlyIdDTO>();
             CreateMap<ClassDTO, Class>();
@@ -20,12 +23,6 @@ namespace School.Mappings
             CreateMap<LessonDTO, Lesson>();
             CreateMap<Lesson, LessonDTO>()
                 .ForMember("AcademicSubjectName", opt => opt.MapFrom(c => c.AcademicSubject.Name));
-
-            CreateMap<Student, StudentDTO>();
-            CreateMap<StudentDTO, Student>();
-
-            CreateMap<Teacher, TeacherDTO>();
-            CreateMap<TeacherDTO, Teacher>();
 
             CreateMap<Teacher, TeacherFullNameDTO>()
                 .ForMember("FullName", opt => opt.MapFrom

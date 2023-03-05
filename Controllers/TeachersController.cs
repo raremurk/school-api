@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using School.Models;
-using School.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using School_API.ViewModels;
+using School_API.Context;
+using School_API.Models;
 
-namespace School.Controllers
+namespace School_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

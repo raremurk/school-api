@@ -1,4 +1,4 @@
-﻿namespace School.Models
+﻿namespace School_API.Models
 {
     public class Student
     {

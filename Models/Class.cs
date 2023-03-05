@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace School.Models
+﻿namespace School_API.Models
 {
     public class Class
     {
