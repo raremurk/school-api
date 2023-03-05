@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
-using School.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace School.Controllers
 {
@@ -27,7 +22,7 @@ namespace School.Controllers
         {
             var director = await _context.Teachers.FirstOrDefaultAsync(p => p.Position == "Директор");
             var headTeacher = await _context.Teachers.FirstOrDefaultAsync(p => p.Position == "Завуч");
-            var students = await _context.Students.ToListAsync();
+            var students = await _context.Students.Where(x => x.ClassId != null).ToListAsync();
             var teachers = await _context.Teachers.ToListAsync();
 
             SchoolStat answer = new()

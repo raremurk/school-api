@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
 using School.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace School.Controllers
 {
@@ -29,12 +27,14 @@ namespace School.Controllers
         {
             var context = await _context.Teachers
                 .Include(p => p.TeacherSubjects)
-                .Include(x => x.TeacherClasses).AsNoTracking().ToListAsync();
+                .Include(x => x.TeacherClasses)
+                .OrderBy(l => l.LastName)
+                .ToListAsync();
             var answer = _mapper.Map<List<Teacher>, List<TeacherDTO>>(context);
             return answer;
         }
 
-        [HttpGet("all/{id}")]
+        [HttpGet("class/{id}")]
         public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersForClass(int id)
         {
             var context = await _context.Teachers.Where(z => z.Class == null || z.Class.Id == id).OrderBy(x => x.LastName).ToListAsync();
@@ -42,7 +42,7 @@ namespace School.Controllers
             {
                 context = context.Where(a => a.Position == "Учитель мл. классов").ToList();
             }
-            
+
             var teachers = _mapper.Map<List<Teacher>, List<TeacherFullNameDTO>>(context);
             return teachers;
         }
@@ -50,7 +50,7 @@ namespace School.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TeacherDTO>> GetTeacher(int id)
         {
-            var context = await _context.Teachers.Include(p => p.TeacherSubjects).AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var context = await _context.Teachers.Include(p => p.TeacherSubjects).FirstOrDefaultAsync(p => p.Id == id);
             var teacher = _mapper.Map<Teacher, TeacherDTO>(context);
 
             if (teacher == null)

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
 using School.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace School.Controllers
 {
@@ -25,29 +23,40 @@ namespace School.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudent()
+        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
         {
             var context = await _context.Students.Include(x => x.Class).Where(k => k.ClassId != null).ToListAsync();
             var students = _mapper.Map<List<Student>, List<StudentDTO>>(context);
             return students;
         }
 
+        [HttpGet("class/{id}")]
+        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudentsForClass(int id)
+        {
+            var context = await _context.Students.Include(x => x.Class).Where(k => k.ClassId == id).ToListAsync();
+            var students = _mapper.Map<List<Student>, List<StudentDTO>>(context);
+            return students;
+        }
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult<StudentDTO>> GetStudent(int id)
         {
             var student = await _context.Students.FindAsync(id);
+            var answer = _mapper.Map<Student, StudentDTO>(student);
 
             if (student == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return answer;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutStudent(int id, StudentDTO studentDTO)
         {
+            var student = _mapper.Map<StudentDTO, Student>(studentDTO);
+
             if (id != student.Id)
             {
                 return BadRequest();
@@ -75,8 +84,9 @@ namespace School.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<StudentDTO>> PostStudent(StudentDTO studentDTO)
         {
+            var student = _mapper.Map<StudentDTO, Student>(studentDTO);
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
             var context = _context.Students.Include(x => x.Class).FirstOrDefault(x => x.Id == student.Id);

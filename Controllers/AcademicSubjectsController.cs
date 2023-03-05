@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
-using AutoMapper;
 using School.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace School.Controllers
 {
@@ -34,7 +32,7 @@ namespace School.Controllers
 
         [Route("class/{id}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AcademicSubjectDTO>>> GetClassAcademicSubjects(int id)
+        public async Task<ActionResult<IEnumerable<AcademicSubjectDTO>>> GetAcademicSubjectsForClass(int id)
         {
             var context = await _context.AcademicSubjects.Where(p => p.MinClass <= id && p.MaxClass >= id).ToListAsync();
             var subjects = _mapper.Map<List<AcademicSubject>, List<AcademicSubjectDTO>>(context);
@@ -42,21 +40,24 @@ namespace School.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AcademicSubject>> GetAcademicSubject(int id)
+        public async Task<ActionResult<AcademicSubjectDTO>> GetAcademicSubject(int id)
         {
             var academicSubject = await _context.AcademicSubjects.FindAsync(id);
+            var subject = _mapper.Map<AcademicSubject, AcademicSubjectDTO>(academicSubject);
 
             if (academicSubject == null)
             {
                 return NotFound();
             }
 
-            return academicSubject;
+            return subject;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAcademicSubject(int id, AcademicSubject academicSubject)
+        public async Task<IActionResult> PutAcademicSubject(int id, AcademicSubjectDTO academicSubjectDTO)
         {
+            var academicSubject = _mapper.Map<AcademicSubjectDTO, AcademicSubject>(academicSubjectDTO);
+
             if (id != academicSubject.Id)
             {
                 return BadRequest();
@@ -84,8 +85,9 @@ namespace School.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AcademicSubject>> PostAcademicSubject(AcademicSubject academicSubject)
+        public async Task<ActionResult<AcademicSubjectDTO>> PostAcademicSubject(AcademicSubjectDTO academicSubjectDTO)
         {
+            var academicSubject = _mapper.Map<AcademicSubjectDTO, AcademicSubject>(academicSubjectDTO);
             _context.AcademicSubjects.Add(academicSubject);
             await _context.SaveChangesAsync();
 

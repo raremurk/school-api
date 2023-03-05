@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
 using School.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace School.Controllers
 {
@@ -47,8 +45,10 @@ namespace School.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClass(int id, Class @class)
+        public async Task<IActionResult> PutClass(int id, ClassDTO @classDTO)
         {
+            var @class = _mapper.Map<ClassDTO, Class>(@classDTO);
+
             _context.Entry(@class).State = EntityState.Modified;
 
             try

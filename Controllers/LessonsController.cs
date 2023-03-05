@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.Models;
-using AutoMapper;
 using School.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace School.Controllers
 {
@@ -24,7 +22,6 @@ namespace School.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Lessons
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LessonDTO>>> GetLessons()
         {
@@ -33,11 +30,10 @@ namespace School.Controllers
             return answer;
         }
 
-        // GET: api/Lessons/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<IEnumerable<LessonDTO>>>> GetLesson(int id)
+        public async Task<ActionResult<IEnumerable<IEnumerable<LessonDTO>>>> GetTimetable(int id)
         {
-            List<List<LessonDTO>> timetable = new List<List<LessonDTO>>();
+            List<List<LessonDTO>> timetable = new();
             for (int i = 1; i <= (id < 5 ? 5 : 6); i++)
             {
                 var context = await _context.Lessons.Where(x => x.ClassId == id)
@@ -47,8 +43,8 @@ namespace School.Controllers
                 var answer = _mapper.Map<List<Lesson>, List<LessonDTO>>(context);
                 timetable.Add(answer);
             }
-            
-  
+
+
             if (timetable[0].Count == 0)
             {
                 return NotFound();
@@ -57,11 +53,11 @@ namespace School.Controllers
             return timetable;
         }
 
-        // PUT: api/Lessons/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLesson(int id, Lesson lesson)
+        public async Task<IActionResult> PutLesson(int id, LessonDTO lessonDTO)
         {
+            var lesson = _mapper.Map<LessonDTO, Lesson>(lessonDTO);
+
             if (id != lesson.Id)
             {
                 return BadRequest();
@@ -88,18 +84,16 @@ namespace School.Controllers
             return NoContent();
         }
 
-        // POST: api/Lessons
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Lesson>> PostLesson(Lesson lesson)
+        public async Task<ActionResult<LessonDTO>> PostLesson(LessonDTO lessonDTO)
         {
+            var lesson = _mapper.Map<LessonDTO, Lesson>(lessonDTO);
             _context.Lessons.Add(lesson);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLesson", new { id = lesson.Id }, lesson);
         }
 
-        // DELETE: api/Lessons/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLesson(int id)
         {
