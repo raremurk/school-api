@@ -30,7 +30,6 @@ namespace School_API.Context
             modelBuilder.Entity<Student>().HasData(data.GetStudents());
             modelBuilder.Entity<Lesson>().HasData(data.GetLessons());
             modelBuilder.Entity<TeacherSubject>().HasData(data.GetTeacherSubjects());
-            modelBuilder.Entity<TeacherClass>().HasData(data.GetTeacherClasses());
 
             modelBuilder.Entity<Class>()
                 .HasOne(j => j.ClassTeacher)

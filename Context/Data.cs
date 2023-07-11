@@ -8,50 +8,48 @@ namespace School_API.Context
         {
             new AcademicSubject { Name = "Трудовое обучение", MinClass = 1, MaxClass = 11 },
             new AcademicSubject { Name = "Черчение", MinClass = 10, MaxClass = 10 },
+            new AcademicSubject { Name = "ОБЖ", MinClass = 2, MaxClass = 5 },
+            new AcademicSubject { Name = "ДиМП", MinClass = 10, MaxClass = 11 },
             new AcademicSubject { Name = "Всемирная история", MinClass = 5, MaxClass = 11 },
             new AcademicSubject { Name = "История Беларуси", MinClass = 6, MaxClass = 11 },
             new AcademicSubject { Name = "Обществоведение", MinClass = 9, MaxClass = 11 },
+            new AcademicSubject { Name = "Русский язык", MinClass = 1, MaxClass = 11 },
+            new AcademicSubject { Name = "Русская лит.", MinClass = 1, MaxClass = 11 },
             new AcademicSubject { Name = "Белорусский язык", MinClass = 1, MaxClass = 11 },
             new AcademicSubject { Name = "Белорусская лит.", MinClass = 1, MaxClass = 11 },
             new AcademicSubject { Name = "Информатика", MinClass = 6, MaxClass = 11 },
             new AcademicSubject { Name = "Физика", MinClass = 7, MaxClass = 11 },
             new AcademicSubject { Name = "Астрономия", MinClass = 11, MaxClass = 11 },
-            new AcademicSubject { Name = "Русский язык", MinClass = 1, MaxClass = 11 },
-            new AcademicSubject { Name = "Русская лит.", MinClass = 1, MaxClass = 11 },
             new AcademicSubject { Name = "Биология", MinClass = 6, MaxClass = 11 },
             new AcademicSubject { Name = "Химия", MinClass = 7, MaxClass = 11 },
+            new AcademicSubject { Name = "Человек и мир", MinClass = 1, MaxClass = 5 },
             new AcademicSubject { Name = "География", MinClass = 6, MaxClass = 11 },
             new AcademicSubject { Name = "Математика", MinClass = 1, MaxClass = 11 },
             new AcademicSubject { Name = "Иностранный язык", MinClass = 3, MaxClass = 11 },
-            new AcademicSubject { Name = "Физкультура", MinClass = 1, MaxClass = 11 },
-            new AcademicSubject { Name = "ДиМП", MinClass = 10, MaxClass = 11 },
+            new AcademicSubject { Name = "Физкультура", MinClass = 1, MaxClass = 11 },            
             new AcademicSubject { Name = "Искусство", MinClass = 5, MaxClass = 9 },
-            new AcademicSubject { Name = "Человек и мир", MinClass = 1, MaxClass = 5 },
             new AcademicSubject { Name = "Изобр. искусство", MinClass = 1, MaxClass = 4 },
-            new AcademicSubject { Name = "Музыка", MinClass = 1, MaxClass = 4 },
-            new AcademicSubject { Name = "ОБЖ", MinClass = 2, MaxClass = 5 }
+            new AcademicSubject { Name = "Музыка", MinClass = 1, MaxClass = 4 }           
         };
 
         private List<Teacher> teachers = new()
         {
-            new Teacher { FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко", Position = "Учитель мл. классов" },
-            new Teacher { FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко", Position = "Учитель мл. классов" },
-            new Teacher { FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва", Position = "Учитель мл. классов" },
-            new Teacher { FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко", Position = "Учитель мл. классов" },
-            new Teacher { FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко", Position = "Учитель" },
-            new Teacher { FirstName = "Кирилл", MiddleName = "Александрович", LastName = "Жилинский", Position = "Учитель" },
-            new Teacher { FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова", Position = "Учитель" },
-            new Teacher { FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая", Position = "Учитель" },
-            new Teacher { FirstName = "Денис", MiddleName = "Николаевич", LastName = "Марченко", Position = "Учитель" },
-            new Teacher { FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович", Position = "Учитель" },
-            new Teacher { FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович", Position = "Учитель" },
-            new Teacher { FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич", Position = "Учитель" },
-            new Teacher { FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко", Position = "Учитель" },
-            new Teacher { FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич", Position = "Учитель" },
-            new Teacher { FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская", Position = "Учитель" },
-            new Teacher { FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук", Position = "Учитель" },
-            new Teacher { FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова", Position = "Завуч" },
-            new Teacher { FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович", Position = "Директор" }
+            new Teacher { FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая", Specialization = "Учитель старших классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич", Specialization = "Учитель начальных классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская", Specialization = "Учитель начальных классов", ManagementPosition = ""  },
+            new Teacher { FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук", Specialization = "Учитель начальных классов", ManagementPosition = ""  },
+            new Teacher { FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова", Specialization = "Учитель начальных классов", ManagementPosition = "" },
+            new Teacher { FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович", Specialization = "Учитель старших классов", ManagementPosition = "Директор"},
+            new Teacher { FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич", Specialization = "Учитель старших классов", ManagementPosition = "Завуч" }
         };
 
         private List<Student> students = new()
@@ -171,55 +169,28 @@ namespace School_API.Context
 
         private List<TeacherSubject> teachersSubjects = new()
         { 
-            new TeacherSubject { TeacherId = 1, AcademicSubjectId = 1 },
-            new TeacherSubject { TeacherId = 1, AcademicSubjectId = 2 },
-            new TeacherSubject { TeacherId = 2, AcademicSubjectId = 3 },
-            new TeacherSubject { TeacherId = 2, AcademicSubjectId = 4 },
-            new TeacherSubject { TeacherId = 9, AcademicSubjectId = 5 },
-            new TeacherSubject { TeacherId = 9, AcademicSubjectId = 6 },
-            new TeacherSubject { TeacherId = 9, AcademicSubjectId = 24 },
-            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 7 },
-            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 8 },
-            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 9 },
-            new TeacherSubject { TeacherId = 5, AcademicSubjectId = 10 },
-            new TeacherSubject { TeacherId = 5, AcademicSubjectId = 11 },
-            new TeacherSubject { TeacherId = 5, AcademicSubjectId = 12 },
+            new TeacherSubject { TeacherId = 1, AcademicSubjectId = 8 },
+            new TeacherSubject { TeacherId = 1, AcademicSubjectId = 9 },
+            new TeacherSubject { TeacherId = 2, AcademicSubjectId = 10 },
+            new TeacherSubject { TeacherId = 2, AcademicSubjectId = 11 },
+            new TeacherSubject { TeacherId = 3, AcademicSubjectId = 5 },
+            new TeacherSubject { TeacherId = 3, AcademicSubjectId = 6 },
+            new TeacherSubject { TeacherId = 3, AcademicSubjectId = 7 },
+            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 1 },
+            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 2 },
+            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 3 },
+            new TeacherSubject { TeacherId = 4, AcademicSubjectId = 4 },
+            new TeacherSubject { TeacherId = 5, AcademicSubjectId = 15 },
+            new TeacherSubject { TeacherId = 5, AcademicSubjectId = 16 },
+            new TeacherSubject { TeacherId = 6, AcademicSubjectId = 12 },
             new TeacherSubject { TeacherId = 6, AcademicSubjectId = 13 },
             new TeacherSubject { TeacherId = 6, AcademicSubjectId = 14 },
-            new TeacherSubject { TeacherId = 7, AcademicSubjectId = 15 },
-            new TeacherSubject { TeacherId = 8, AcademicSubjectId = 16 },
-            new TeacherSubject { TeacherId = 9, AcademicSubjectId = 17 },
-            new TeacherSubject { TeacherId = 10, AcademicSubjectId = 18 },
-            new TeacherSubject { TeacherId = 11, AcademicSubjectId = 19 },
-            new TeacherSubject { TeacherId = 12, AcademicSubjectId = 20 },
-        };
-
-        private List<TeacherClass> teachersClasses = new()
-        {
-            new TeacherClass { TeacherId = 1, ClassId = 3 },
-            new TeacherClass { TeacherId = 1, ClassId = 4 },
-            new TeacherClass { TeacherId = 1, ClassId = 5 },
-            new TeacherClass { TeacherId = 1, ClassId = 6 },
-            new TeacherClass { TeacherId = 1, ClassId = 7 },
-            new TeacherClass { TeacherId = 1, ClassId = 8 },
-            new TeacherClass { TeacherId = 1, ClassId = 9 },
-            new TeacherClass { TeacherId = 1, ClassId = 10 },
-            new TeacherClass { TeacherId = 1, ClassId = 11 },
-            new TeacherClass { TeacherId = 8, ClassId = 6 },
-            new TeacherClass { TeacherId = 8, ClassId = 1 },
-            new TeacherClass { TeacherId = 8, ClassId = 8 },
-            new TeacherClass { TeacherId = 9, ClassId = 9 },
-            new TeacherClass { TeacherId = 9, ClassId = 11 },
-            new TeacherClass { TeacherId = 9, ClassId = 10 },
-            new TeacherClass { TeacherId = 10, ClassId = 10 },
-            new TeacherClass { TeacherId = 10, ClassId = 8 },
-            new TeacherClass { TeacherId = 10, ClassId = 9 },
-            new TeacherClass { TeacherId = 11, ClassId = 6 },
-            new TeacherClass { TeacherId = 12, ClassId = 7 },
-            new TeacherClass { TeacherId = 12, ClassId = 6 },
-            new TeacherClass { TeacherId = 13, ClassId = 9 },
-            new TeacherClass { TeacherId = 14, ClassId = 11 },
-            new TeacherClass { TeacherId = 15, ClassId = 10 }
+            new TeacherSubject { TeacherId = 7, AcademicSubjectId = 17 },
+            new TeacherSubject { TeacherId = 7, AcademicSubjectId = 18 },
+            new TeacherSubject { TeacherId = 8, AcademicSubjectId = 19 },
+            new TeacherSubject { TeacherId = 9, AcademicSubjectId = 20 },
+            new TeacherSubject { TeacherId = 10, AcademicSubjectId = 21 },
+            new TeacherSubject { TeacherId = 16, AcademicSubjectId = 22 },
         };
 
         private List<Class> classes = new();
@@ -299,7 +270,5 @@ namespace School_API.Context
         }
 
         public List<TeacherSubject> GetTeacherSubjects() => teachersSubjects;
-
-        public List<TeacherClass> GetTeacherClasses() => teachersClasses;
     }
 }

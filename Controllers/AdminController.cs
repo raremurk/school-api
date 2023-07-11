@@ -19,8 +19,8 @@ namespace School_API.Controllers
         [HttpGet]
         public async Task<ActionResult<SchoolStat>> GetInfo()
         {
-            var director = await _context.Teachers.FirstOrDefaultAsync(p => p.Position == "Директор");
-            var headTeacher = await _context.Teachers.FirstOrDefaultAsync(p => p.Position == "Завуч");
+            var director = await _context.Teachers.FirstOrDefaultAsync(p => p.ManagementPosition == "Директор");
+            var headTeacher = await _context.Teachers.FirstOrDefaultAsync(p => p.ManagementPosition == "Завуч");
             var students = await _context.Students.Where(x => x.ClassId != null).ToListAsync();
             var teachers = await _context.Teachers.ToListAsync();
 

@@ -26,7 +26,6 @@ namespace School_API.Controllers
             var context = await _context.Teachers
                 .Include(p => p.TeacherSubjects)
                 .Include(x => x.TeacherClasses)
-                .OrderBy(l => l.LastName)
                 .ToListAsync();
             var answer = _mapper.Map<List<Teacher>, List<TeacherDTO>>(context);
             return answer;
@@ -35,12 +34,8 @@ namespace School_API.Controllers
         [HttpGet("class/{id}")]
         public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersForClass(int id)
         {
-            var context = await _context.Teachers.Where(z => z.Class == null || z.Class.Id == id).OrderBy(x => x.LastName).ToListAsync();
-            if (id < 5)
-            {
-                context = context.Where(a => a.Position == "Учитель мл. классов").ToList();
-            }
-
+            var filter = id > 4 ? "Учитель старших классов" : "Учитель начальных классов";
+            var context = await _context.Teachers.Where(z => z.Specialization == filter).OrderBy(x => x.LastName).ToListAsync();
             var teachers = _mapper.Map<List<Teacher>, List<TeacherFullNameDTO>>(context);
             return teachers;
         }
