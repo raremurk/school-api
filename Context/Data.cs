@@ -32,24 +32,30 @@ namespace School_API.Context
             new AcademicSubject { Name = "Музыка", MinClass = 1, MaxClass = 4 }           
         };
 
+        private List<Administration> administration = new()
+        {
+            new Administration { Position = "Директор", TeacherId = 15 },
+            new Administration { Position = "Завуч", TeacherId = 16 }          
+        };
+
         private List<Teacher> teachers = new()
         {
-            new Teacher { FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая", Specialization = "Учитель старших классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич", Specialization = "Учитель начальных классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская", Specialization = "Учитель начальных классов", ManagementPosition = ""  },
-            new Teacher { FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук", Specialization = "Учитель начальных классов", ManagementPosition = ""  },
-            new Teacher { FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова", Specialization = "Учитель начальных классов", ManagementPosition = "" },
-            new Teacher { FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович", Specialization = "Учитель старших классов", ManagementPosition = "Директор"},
-            new Teacher { FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич", Specialization = "Учитель старших классов", ManagementPosition = "Завуч" }
+            new Teacher { FirstName = "Светлана", MiddleName = "Ивановна", LastName = "Карпенко", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Евгения", MiddleName = "Александровна", LastName = "Бондаренко", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Юлия", MiddleName = "Степановна", LastName = "Нестерович", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Ярослав", MiddleName = "Иванович", LastName = "Кравченко", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Елена", MiddleName = "Алексеевна", LastName = "Королёва", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Евгений", MiddleName = "Леонидович", LastName = "Солонович", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Мария", MiddleName = "Николаевна", LastName = "Сечко", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Светлана", MiddleName = "Павловна", LastName = "Мурашко", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Карина", MiddleName = "Артемовна", LastName = "Смирнова", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Дарья", MiddleName = "Даниловна", LastName = "Савицкая", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Татьяна", MiddleName = "Федоровна", LastName = "Тарасевич", Specialization = "Учитель начальных классов" },
+            new Teacher { FirstName = "Полина", MiddleName = "Мефодьевна", LastName = "Василевская", Specialization = "Учитель начальных классов" },
+            new Teacher { FirstName = "Наталья", MiddleName = "Михайловна", LastName = "Пинчук", Specialization = "Учитель начальных классов" },
+            new Teacher { FirstName = "Елизавета", MiddleName = "Ефстафьевна", LastName = "Старовойтова", Specialization = "Учитель начальных классов" },
+            new Teacher { FirstName = "Иван", MiddleName = "Ксенофонтович", LastName = "Касперович", Specialization = "Учитель старших классов" },
+            new Teacher { FirstName = "Ирина", MiddleName = "Викторовна", LastName = "Станкевич", Specialization = "Учитель старших классов" }
         };
 
         private List<Student> students = new()
@@ -194,6 +200,11 @@ namespace School_API.Context
         };
 
         private List<Class> classes = new();
+
+        public List<Administration> GetAdministration()
+        {
+            return administration;
+        }
 
         public List<AcademicSubject> GetAcademicSubjects()
         {

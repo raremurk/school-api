@@ -11,5 +11,7 @@
         public string Birthday { get; set; }
         public int? ClassId { get; set; }
         public Class Class { get; set; }
+
+        public void PromoteStudent() => _ = ClassId < 11 ? ClassId++ : ClassId = null;
     }
 }

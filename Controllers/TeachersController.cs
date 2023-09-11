@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using School_API.ViewModels;
 using School_API.Context;
 using School_API.Models;
+using School_API.ViewModels;
 
 namespace School_API.Controllers
 {
@@ -32,49 +32,63 @@ namespace School_API.Controllers
         }
 
         [HttpGet("class/{id}")]
-        public async Task<ActionResult<IEnumerable<TeacherFullNameDTO>>> GetTeachersForClass(int id)
+        public async Task<ActionResult<IEnumerable<TeacherFullName>>> GetTeachersForClass(int id)
         {
             var filter = id > 4 ? "Учитель старших классов" : "Учитель начальных классов";
-            var context = await _context.Teachers.Where(z => z.Specialization == filter).OrderBy(x => x.LastName).ToListAsync();
-            var teachers = _mapper.Map<List<Teacher>, List<TeacherFullNameDTO>>(context);
+            var context = await _context.Teachers
+                .Where(z => z.Specialization == filter && (z.Class == null || z.Class.Id == id))
+                .OrderBy(x => x.LastName)
+                .ToListAsync();
+            var teachers = _mapper.Map<List<Teacher>, List<TeacherFullName>>(context);
+            return teachers;
+        }
+
+        [HttpGet("position/{position}")]
+        public async Task<ActionResult<IEnumerable<TeacherFullName>>> GetTeachersForPosition(string position)
+        {
+            var filter = "Учитель старших классов";
+            var context = await _context.Teachers
+                .Include(p => p.Position)
+                .Where(z => z.Specialization == filter && (z.Position == null || z.Position.Position.Equals(position)))
+                .OrderBy(x => x.LastName)
+                .ToListAsync();
+            var teachers = _mapper.Map<List<Teacher>, List<TeacherFullName>>(context);
             return teachers;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TeacherDTO>> GetTeacher(int id)
         {
-            var context = await _context.Teachers.Include(p => p.TeacherSubjects).FirstOrDefaultAsync(p => p.Id == id);
-            var teacher = _mapper.Map<Teacher, TeacherDTO>(context);
-
+            var teacher = await _context.Teachers
+                .Include(p => p.TeacherSubjects)
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (teacher == null)
             {
                 return NotFound();
             }
 
-            return teacher;
+            var teacherDTO = _mapper.Map<Teacher, TeacherDTO>(teacher);
+            return teacherDTO;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, TeacherDTO teacher)
+        public async Task<IActionResult> PutTeacher(int id, TeacherDTO teacherDTO)
         {
-            if (id != teacher.Id)
+            if (id != teacherDTO.Id)
             {
                 return BadRequest();
             }
-            var teacher_db = _mapper.Map<TeacherDTO, Teacher>(teacher);
 
-            _context.Entry(teacher_db).State = EntityState.Modified;
+            var teacher = _mapper.Map<TeacherDTO, Teacher>(teacherDTO);
 
-            var db_teacher = await _context.Teachers
+            var existingTeacher = _context.Teachers
                 .Include(p => p.TeacherSubjects)
-                .Include(p => p.TeacherClasses).FirstOrDefaultAsync(d => d.Id == id);
-
-            db_teacher.TeacherSubjects.RemoveRange(0, db_teacher.TeacherSubjects.Count);
-            db_teacher.TeacherClasses.RemoveRange(0, db_teacher.TeacherClasses.Count);
-            var subjects = _mapper.Map<List<OnlyIdDTO>, List<TeacherSubject>>(teacher.TeacherSubjects);
-            var classes = _mapper.Map<List<OnlyIdDTO>, List<TeacherClass>>(teacher.TeacherClasses);
-            teacher_db.TeacherSubjects.AddRange(subjects);
-            teacher_db.TeacherClasses.AddRange(classes);
+                .FirstOrDefault(p => p.Id == id);
+            if (existingTeacher != null)
+            {
+                _context.Entry(existingTeacher).CurrentValues.SetValues(teacher);
+                existingTeacher.TeacherSubjects = teacher.TeacherSubjects;
+            }
 
             try
             {
@@ -96,16 +110,16 @@ namespace School_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TeacherDTO>> PostTeacher(TeacherDTO teacher)
+        public async Task<ActionResult<TeacherDTO>> PostTeacher(TeacherDTO teacherDTO)
         {
-            var teacher_db = _mapper.Map<TeacherDTO, Teacher>(teacher);
+            var teacher = _mapper.Map<TeacherDTO, Teacher>(teacherDTO);
 
-            _context.Teachers.Add(teacher_db);
+            _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
 
-            var teacher_answer = _mapper.Map<Teacher, TeacherDTO>(teacher_db);
+            var createdTeacher = _mapper.Map<Teacher, TeacherDTO>(teacher);
 
-            return CreatedAtAction("GetTeacher", new { id = teacher_answer.Id }, teacher_answer);
+            return CreatedAtAction("GetTeacher", new { id = createdTeacher.Id }, createdTeacher);
         }
 
         [HttpDelete("{id}")]

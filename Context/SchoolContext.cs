@@ -6,6 +6,7 @@ namespace School_API.Context
     public class SchoolContext : DbContext
     {
         public DbSet<AcademicSubject> AcademicSubjects { get; set; } = null!;
+        public DbSet<Administration> Administration { get; set; } = null!;
         public DbSet<Teacher> Teachers { get; set; } = null!;
         public DbSet<Student> Students { get; set; } = null!;
         public DbSet<Class> Classes { get; set; } = null!;
@@ -25,11 +26,17 @@ namespace School_API.Context
         {
             var data = new Data();
             modelBuilder.Entity<AcademicSubject>().HasData(data.GetAcademicSubjects());
+            modelBuilder.Entity<Administration>().HasData(data.GetAdministration());
             modelBuilder.Entity<Teacher>().HasData(data.GetTeachers());
             modelBuilder.Entity<Class>().HasData(data.GetClasses());
             modelBuilder.Entity<Student>().HasData(data.GetStudents());
             modelBuilder.Entity<Lesson>().HasData(data.GetLessons());
             modelBuilder.Entity<TeacherSubject>().HasData(data.GetTeacherSubjects());
+
+            modelBuilder.Entity<Administration>()
+                .HasOne(j => j.Teacher)
+                .WithOne(j => j.Position)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Class>()
                 .HasOne(j => j.ClassTeacher)
